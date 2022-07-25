@@ -3,6 +3,8 @@ form caption("HitSoundSlider2") size(400, 300), guiMode("queue") pluginId("def1"
 
 button bounds(30, 22, 80, 40) channel("trigger")
 hslider bounds(32, 76, 150, 50) channel("freq") range(40, 4000, 400, 1, 0.001)
+hslider bounds(32, 142, 150, 50) channel("pan") range(0, 1, .5, 1, 0.001)
+
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>
@@ -24,8 +26,9 @@ endin
 
 instr PlaySound
     aEnv expon 1, p3, 0.001
-    aSig oscili aEnv, p4*aEnv
-    outs aSig, aSig
+    aSig oscili aEnv*0.25, p4*aEnv
+    aPanL, aPanR pan2 aSig, chnget:i("pan")
+    outs aPanL, aPanR
 endin
 
 </CsInstruments>

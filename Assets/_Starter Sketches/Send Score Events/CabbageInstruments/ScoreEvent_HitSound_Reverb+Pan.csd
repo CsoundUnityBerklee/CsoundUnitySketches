@@ -38,9 +38,9 @@ instr PlaySound
     
     aEnv expon 1, p3, 0.001
     
-    aSigL oscili aEnv, p4*aEnv+(rnd(1500))
-    aSigR oscili aEnv, p4*(1-aEnv)+(rnd(6000))
-    aMix = (aSigL+aSigR)*iDryLevel
+    aSigL oscili aEnv, p4*aEnv+(rnd(100))
+    aSigR oscili aEnv, p4*(1-aEnv)+(rnd(100))
+    aMix = (aSigL+aSigR)*iDryLevel*.25
     
     aPanL, aPanR pan2 aMix, p5
     outs aPanL, aPanR
