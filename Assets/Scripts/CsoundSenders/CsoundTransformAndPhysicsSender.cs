@@ -5,11 +5,11 @@ using UnityEngine;
 
 //PACKAGING
     //Write summaries/comments for all functions
-    //Thorough commenting of every line of code
+    //Thorough commenting of code
 
 //BACKLOG
     //Angular speed: makes it so it can calculate the angular speed from the transform
-    //Add Velocity: pass data based on each individual velocity vector axis 
+    //Add VelocitySender: pass data based on each individual velocity vector axis 
     //Rotation: make it so each axis can act as an endless encoder
 
 /// <summary>
@@ -70,6 +70,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         StartCoroutine(Initialization());
     }
 
+    //Waits for Csound to initialize before executing functions on Start.
     private IEnumerator Initialization()
     {
         while (!csoundUnity.IsInitialized)
@@ -80,7 +81,6 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
 
         Debug.Log("CSOUND INITIALIZED");
 
-        //Send values to Csound based on object speed if updateSpeedOnStart is true.
         if (SpeedSender.updateSpeedOnStart)
             UpdateSpeed(true);
 
@@ -104,10 +104,11 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     {
         if (!csoundUnity.IsInitialized) return;
 
-        //If the updateSpeed bool is true, calculate speed and send values to Csound.
+        //Calculates speed and send values to Csound.
         if (SpeedSender.updateSpeed && SpeedSender.speedSource != CsoundSpeed.SpeedSource.None)
             SendCsoundDataBasedOnSpeed();
 
+        //Calculates angular speed and send values to Csound.
         if (AngularSpeedSender.updateAngularSpeed && AngularSpeedSender.angularSpeedSource != CsoundAngularSpeed.AngularSpeedSource.None)
             SendCsoundDataBasedOnAngularSpeed();
     }
@@ -116,6 +117,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     {
         if (!csoundUnity.IsInitialized) return;
 
+        //Passes position values into Csound.
         if (PositionSender.updatePosition)
         {
             if (PositionSender.calculateRelativePos)
@@ -132,6 +134,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 SetCsoundValuesPosZ();
         }
 
+        //Passes rotation values into Csound.
         if (RotationSender.updateRotation)
         {
             CalculateRelativeRotation();
@@ -146,6 +149,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 SetCsoundValuesZRotation();
         }
 
+        //Passes scale axis values into Csound.
         if (ScaleAxisSender.updateScaleAxis)
         {
             if (ScaleAxisSender.calculateRelativeScale)
@@ -159,6 +163,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 SetCsoundValuesScaleZ();
         }
 
+        //Passes scale magnitude values into Csound.
         if (ScaleMagnitudeSender.updateScaleMagnitude && ScaleMagnitudeSender.setScaleMagnitudeTo != CsoundScaleMagnitude.ScaleMagnitudeVectorReference.None)
             SendCsoundDataBasedOnScaleMagnitude();
     }
@@ -175,7 +180,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         }
         else if (SpeedSender.speedSource == CsoundSpeed.SpeedSource.Transform)
         {
-            //Calculates speed based on the transform
+            //Calculates speed based on the 
             SpeedSender.speed = (referenceObject.transform.position - SpeedSender.previousPosSpeed).magnitude / Time.deltaTime;
             SpeedSender.previousPosSpeed = referenceObject.transform.position;
         }
@@ -190,12 +195,13 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             csoundUnity.SetChannel(channelData.name, scaledSpeedValue);
         }
 
+        //Prints speed value on the console.
         if (SpeedSender.debugSpeed)
             Debug.Log(SpeedSender.speed);
     }
 
     /// <summary>
-    /// Starts calcualting the object speed and passing that value into the defined Csound if the bool is true and stops it if false.
+    /// Starts calcualting the object speed and passing that value into Csound if the bool is true and stops it if false.
     /// </summary>
     /// <param name="update"></param>
     public void UpdateSpeed(bool update)
@@ -207,7 +213,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     }
 
     /// <summary>
-    /// Toggles the update speed bool between true and false. Starts calcualting the object speed and passing that value into the defined Csound if the bool is true and stops it if false.
+    /// Toggles the update speed bool between true and false to either start or stop calculating the object speed and passing it into Csound.
     /// </summary>
     public void UpdateSpeedToggle()
     {
@@ -223,7 +229,10 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     #endregion
 
     #region POSITION
-
+    /// <summary>
+	/// Starts passing the object's transform position data into Csound if the bool is true, stops it if false.
+	/// </summary>
+	/// <param name="update"></param>
     public void UpdatePosition(bool update)
     {
         PositionSender.updatePosition = update;
@@ -250,6 +259,9 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + gameObject.name + " update position = " + PositionSender.updatePosition);
     }
 
+    /// <summary>
+	/// Toggles the update position bool to either start or stop passing data from the transform position to Csound.
+	/// </summary>
     public void UpdatePositionToggle()
     {
         if (PositionSender.updatePosition)
@@ -258,9 +270,9 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             PositionSender.updatePosition = true;
 
         UpdatePosition(PositionSender.updatePosition);
-
     }
 
+    //Gets the object starting position to calculate its relative position.
     private void GetRelativeStartingPosition()
     {
         PositionSender.startPos = referenceObject.transform.position;
@@ -269,6 +281,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             PositionSender.startPosCameraRelative = PositionSender.camera.transform.InverseTransformPoint(referenceObject.transform.position);
     }
 
+    //Calculates position relative to the object's starting point.
     private void CaculateRelativePos()
     {
         PositionSender.relativePos = referenceObject.transform.position - PositionSender.startPos;
@@ -277,6 +290,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + referenceObject.name + " relative position: " + PositionSender.relativePos);
     }
 
+    //Calculates position relative to the object's starting point, making it also relative to the camera's orientation.
     private void CalculateRelativeCameraPos()
     {
         Vector3 currentTransform = PositionSender.camera.transform.InverseTransformPoint(transform.position);
@@ -287,7 +301,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + referenceObject.name + " relative position: " + PositionSender.relativeCameraPos);
     }
 
-
+    //Passes the X position axis values to Csound
     private void SetCsoundValuesPosX()
     {
         if (PositionSender.setXPositionTo == CsoundPosition.PositionVectorReference.Absolute)
@@ -298,6 +312,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, PositionSender.relativePos.x, PositionSender.returnAbsoluteValuesPosX);
     }
 
+    //Passes the Y position axis values to Csound
     private void SetCsoundValuesPosY()
     {
         if (PositionSender.setYPositionTo == CsoundPosition.PositionVectorReference.Absolute)
@@ -308,6 +323,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, PositionSender.relativePos.y, PositionSender.returnAbsoluteValuesPosY);
     }
 
+    //Passes the Z position axis values to Csound
     private void SetCsoundValuesPosZ()
     {
         if (PositionSender.setZPositionTo == CsoundPosition.PositionVectorReference.Absolute)
@@ -601,6 +617,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     #endregion
 
     #region UTILITIES
+    //Scales a float between a minimum and a maximum value.
     private float ScaleFloat(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
     {
         float OldRange = (OldMax - OldMin);
@@ -610,7 +627,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         return (NewValue);
     }
 
-
+    //Scales the Channel Data minValue and maxCalue and passes it into Csound, mapping them to a defined range.
     private void SetCsoundChannelBasedOnAxis(CsoundChannelDataSO csoundChannels, float minVectorRange, float maxVectorRange, float vectorAxis, bool returnAbsoluteValue)
     {
         foreach (CsoundChannelDataSO.CsoundChannelData data in csoundChannels.channelData)
@@ -629,6 +646,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         }
     }
 
+    //Scales the Channel Data minValue and maxCalue and passes it into Csound, mapping them to a defined range.
     private void SetCsoundChannelBasedOnAxis(CsoundChannelDataSO csoundChannels, float minVectorRange, float maxVectorRange, float vectorAxis)
     {
         foreach (CsoundChannelDataSO.CsoundChannelData data in csoundChannels.channelData)
