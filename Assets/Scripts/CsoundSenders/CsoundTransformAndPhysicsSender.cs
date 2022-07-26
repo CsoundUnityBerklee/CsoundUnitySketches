@@ -4,7 +4,7 @@ using UnityEngine;
 //TODO
 
 //PACKAGING
-    //Write summaries for all public functions
+    //Write summaries/comments for all functions
     //Thorough commenting of every line of code
 
 //BACKLOG
@@ -37,7 +37,6 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     [Space]
     public CsoundAngularSpeed AngularSpeedSender;
 
-
     #region UNITY LIFE CYCLE
     private void Awake()
     {
@@ -50,7 +49,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             rigidbody = referenceObject.GetComponent<Rigidbody>();
 
             if (rigidbody == null)
-                Debug.LogError("No Rigidbody component attached to " + referenceObject.name);
+                Debug.LogWarning("No Rigidbody component attached to " + referenceObject.name + ". This might lead to errors if you're using either the SpeedSender or AngularSpeedSender functions.");
         }
 
         //Gets the CsoundUnity component attached to the object.
@@ -566,12 +565,12 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (ScaleAxisSender.setXScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
         {
             if (ScaleAxisSender.useLocalScale)
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.localScale.x);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.localScale.x, ScaleAxisSender.returnAbsoluteValuesScaleX);
             else
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.lossyScale.x);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.lossyScale.x, ScaleAxisSender.returnAbsoluteValuesScaleX);
         }
         else
-            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, ScaleAxisSender.relativeScale.x);
+            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, ScaleAxisSender.relativeScale.x, ScaleAxisSender.returnAbsoluteValuesScaleX);
     }
 
     private void SetCsoundValuesScaleY()
@@ -579,12 +578,12 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (ScaleAxisSender.setYScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
         {
             if (ScaleAxisSender.useLocalScale)
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.localScale.y);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.localScale.y, ScaleAxisSender.returnAbsoluteValuesScaleY);
             else
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.lossyScale.y);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.lossyScale.y, ScaleAxisSender.returnAbsoluteValuesScaleY);
         }
         else
-            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, ScaleAxisSender.relativeScale.y);
+            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, ScaleAxisSender.relativeScale.y, ScaleAxisSender.returnAbsoluteValuesScaleY);
     }
 
     private void SetCsoundValuesScaleZ()
@@ -592,12 +591,12 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (ScaleAxisSender.setZScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
         {
             if (ScaleAxisSender.useLocalScale)
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.localScale.z);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.localScale.z, ScaleAxisSender.returnAbsoluteValuesScaleZ);
             else
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.lossyScale.z);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.lossyScale.z, ScaleAxisSender.returnAbsoluteValuesScaleZ);
         }
         else
-            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, ScaleAxisSender.relativeScale.z);
+            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, ScaleAxisSender.relativeScale.z, ScaleAxisSender.returnAbsoluteValuesScaleZ);
     }
     #endregion
 
@@ -695,13 +694,13 @@ public class CsoundRotation
     public RotationMode rotationMode = RotationMode.Circular;
 
     [Tooltip("Define if the rotation X axis is taken as an absolute value or relative to its starting rotation.")]
-    public RotationVectorReference setXRotationTo = RotationVectorReference.Relative;
+    public RotationVectorReference setXRotationTo = RotationVectorReference.None;
 
     [Tooltip("Define if the rotation Y axis is taken as an absolute value or relative to its starting rotation.")]
-    public RotationVectorReference setYRotationTo = RotationVectorReference.Relative;
+    public RotationVectorReference setYRotationTo = RotationVectorReference.None;
 
     [Tooltip("Define if the rotation Z axis is taken as an absolute value or relative to its starting rotation.")]
-    public RotationVectorReference setZRotationTo = RotationVectorReference.Relative;
+    public RotationVectorReference setZRotationTo = RotationVectorReference.None;
     [Space]
     [Tooltip("Csound channels that will be affected by the rotation X axis.")]
     public CsoundChannelDataSO csoundChannelsRotationX;
@@ -740,6 +739,9 @@ public class CsoundScaleAxis
 
     [Tooltip("Minimum and maximum transform scale values for scaling Csound channel values.")]
     public Vector3 scaleVectorRangesMax, scaleVectorRangesMin;
+
+    [Tooltip("Returns only positive values for each scale axis")]
+    public bool returnAbsoluteValuesScaleX = true, returnAbsoluteValuesScaleY = true, returnAbsoluteValuesScaleZ = true;
     [Space]
     [Tooltip("Csound channels that will be affected by the scale X axis.")]
     public CsoundChannelDataSO csoundChannelsScaleX;
