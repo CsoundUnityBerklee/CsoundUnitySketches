@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a185b42e7af674c22ad74983d5ff9611, type: 3}
-  m_Name: STARTER_MapPosition_Y
+  m_Script: {fileID: 11500000, guid: cfddfa2529aa84dd4a8b2d0bf8752f1f, type: 3}
+  m_Name: STARTER_ChannelRange_PositionY
   m_EditorClassIdentifier: 
   channelData:
   - name: filter
-    fixedValue: 0
     minValue: 1000
     maxValue: 10000
+    returnAbsoluteValue: 0
   - name: distortion
-    fixedValue: 0
     minValue: 0
     maxValue: 0.5
+    returnAbsoluteValue: 0

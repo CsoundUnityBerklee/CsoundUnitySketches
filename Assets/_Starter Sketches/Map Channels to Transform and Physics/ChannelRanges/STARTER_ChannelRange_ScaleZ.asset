@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfddfa2529aa84dd4a8b2d0bf8752f1f, type: 3}
-  m_Name: STARTTER_ChannelRange_Generic
+  m_Name: STARTER_ChannelRange_ScaleZ
   m_EditorClassIdentifier: 
   channelData:
   - name: pitch2
@@ -22,22 +22,6 @@ MonoBehaviour:
     maxValue: 69
     returnAbsoluteValue: 0
   - name: mix
-    minValue: 0.25
+    minValue: -1
     maxValue: 1
-    returnAbsoluteValue: 0
-  - name: vibfreq
-    minValue: 1
-    maxValue: 10
-    returnAbsoluteValue: 0
-  - name: vibamp
-    minValue: 0.5
-    maxValue: 5
-    returnAbsoluteValue: 0
-  - name: pulsewidth
-    minValue: 0.5
-    maxValue: 0.9
-    returnAbsoluteValue: 0
-  - name: filter
-    minValue: 1000
-    maxValue: 5000
     returnAbsoluteValue: 0
