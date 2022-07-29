@@ -3,7 +3,7 @@ using UnityEngine;
 public class STARTERScoreEventOnTriggerEnter : MonoBehaviour
 {
     private CsoundUnity csoundUnity;
-    private string scoreEvent = "i 2 0 0.5 100 0";
+    private string scoreEvent = "i 2 0 0.5 650 0";
 
     // Start is called before the first frame update
     void Start()

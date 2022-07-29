@@ -5,6 +5,8 @@ using UnityEngine;
 public class TorqueOnInput : MonoBehaviour
 {
     public float strength = 5f;
+
+    private float torqueLimit;
     private Rigidbody rb;
     private Vector3 torqueVector = new Vector3(0, 0, 1);
 
@@ -12,6 +14,7 @@ public class TorqueOnInput : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        torqueLimit = GetComponent<CsoundTransformAndPhysicsSender>().AngularSpeedSender.maxAngularSpeedValue;
     }
 
     // Update is called once per frame
@@ -21,10 +24,20 @@ public class TorqueOnInput : MonoBehaviour
         {
             Torque();
         }
+
+        TorqueLimit();
     }
 
     void Torque()
     {
         rb.AddTorque(torqueVector * strength);
+    }
+
+    void TorqueLimit()
+    {
+        if(rb.angularVelocity.magnitude > torqueLimit)
+        {
+            rb.angularVelocity = rb.angularVelocity.normalized * torqueLimit;
+        }
     }
 }

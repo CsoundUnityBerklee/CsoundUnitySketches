@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864e03d2f9df045e685a559dfb9dcac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 3
+  strength: 5
 --- !u!54 &2138938838
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -751,7 +751,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.35
+  m_AngularDrag: 0.15
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -790,7 +790,6 @@ MonoBehaviour:
   RandomChannelValues:
     randomValueChannelsList: []
     randomValueIndexOnStart: 0
-    useCurrentPresetRandomValues: 0
     setChannelRandomValuesOnStart: 0
     debugRandomChannelsValues: 0
     randomValueCurrentIndex: 0
@@ -998,8 +997,8 @@ MonoBehaviour:
   _drawTestScore: 0
   _drawSettings: 0
   _drawChannels: 1
-  _drawAudioChannels: 1
-  _drawPresets: 0
+  _drawAudioChannels: 0
+  _drawPresets: 1
   _showRuntimeEnvironmentPath: 0
   _currentPreset: 
 --- !u!82 &2138938841
@@ -1185,7 +1184,7 @@ MonoBehaviour:
   AngularSpeedSender:
     angularSpeedSource: 1
     angularSpeedChannels: {fileID: 11400000, guid: 011380b1c3d9e408db1a64d50a8259b4, type: 2}
-    maxAngularSpeedValue: 7
+    maxAngularSpeedValue: 10
     updateAngularSpeedOnStart: 1
     debugAngularSpeed: 1
     rotationSpeed: 0
