@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Provides methods to send data in the CsoundChannelDataSO and CsoundScoreEventSO assets through a CsoundUnity component.
+/// Provides methods to send data in the CsoundUnityPreset and CsoundScoreEventSO assets through a CsoundUnity component.
 /// </summary>
 public class CsoundSender : MonoBehaviour
 {
