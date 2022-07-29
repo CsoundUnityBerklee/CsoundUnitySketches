@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Provides methods to send data in the CsoundChannelDataSO and CsoundScoreEventSO assets through a CsoundUnity component.
+/// Provides methods to send data in the CsoundUnityPreset and CsoundScoreEventSO assets through a CsoundUnity component.
 /// </summary>
 public class CsoundSender : MonoBehaviour
 {
@@ -66,50 +66,52 @@ public class CsoundSender : MonoBehaviour
 
     #region PRESETS
     /// <summary>
-    /// Reset values for the currently indexed ChannelData preset.
+    /// Reset values for the currently indexed CsoundUnityPreset preset.
     /// </summary>
     /// <param name="index"></param>
     public void ResetPreset()
     {
+        //Reset preset to the current preset list index.
+        csoundUnity.SetPreset(InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
+
         if (InstrumentPresets.debugPresets)
             Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
-
-        //Passes each channel fixed value to Csound.
-        foreach (CsoundChannelDataSO.CsoundChannelData channelData in InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].channelData)
-        {
-            csoundUnity.SetChannel(channelData.name, channelData.fixedValue);
-        }
     }
 
     /// <summary>
-    /// Uses the indexed ChannelData asset fixed values to set instrument presets.
+    /// Uses the indexed CsoundUnityPreset asset to set the instrument's preset.
     /// </summary>
     /// <param name="index"></param>
     public void SetPreset(int index)
     {
-        if (InstrumentPresets.debugPresets)
-            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[index]);
-
-        //Passes each channel fixed value to Csound.
-        foreach (CsoundChannelDataSO.CsoundChannelData channelData in InstrumentPresets.presetList[index].channelData)
-        {
-            csoundUnity.SetChannel(channelData.name, channelData.fixedValue);
-        }
-
         //Set current preset index to the passed index.
         InstrumentPresets.presetCurrentIndex = index;
+        //Set preset.
+        csoundUnity.SetPreset(InstrumentPresets.presetList[index]);
+
+        if (InstrumentPresets.debugPresets)
+            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[index]);
     }
 
     /// <summary>
-    /// Adds a ChannelsData asset to the preset list and sets it as a preset.
+    /// Adds a CsoundUnityPreset asset to the preset list and sets it as a preset.
     /// </summary>
-    /// <param name="channelData"></param>
-    public void SetPreset(CsoundChannelDataSO channelData)
+    /// <param name="preset"></param>
+    public void SetPreset(CsoundUnityPreset preset)
     {
         //Adds new channel data to the preset list as the last item.
-        InstrumentPresets.presetList.Add(channelData);
+        InstrumentPresets.presetList.Add(preset);
         //Calls SetPreset passing in the last item as the index.
         SetPreset(InstrumentPresets.presetList.Count - 1);
+    }
+
+    /// <summary>
+	/// Sets a random preset from the inspector defined list.
+	/// </summary>
+    public void SetRandomPreset()
+    {
+        int randomIndex = Random.Range(0, InstrumentPresets.presetList.Count);
+        SetPreset(randomIndex);
     }
 
     #endregion
@@ -273,24 +275,14 @@ public class CsoundSender : MonoBehaviour
     /// </summary>
     public void SetChannelsToRandomValue()
     {
-        if (!RandomChannelValues.useCurrentPresetRandomValues)
+
+        for (int i = 0; i < RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData.Length; i++)
         {
-            for (int i = 0; i < RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData.Length; i++)
-            {
-                //Get the random value from the scriptable object and passes it to Csound.
-                csoundUnity.SetChannel(RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData[i].name,
-                    RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
-            }
+            //Get the random value from the scriptable object and passes it to Csound.
+            csoundUnity.SetChannel(RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData[i].name,
+                RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
         }
-        else
-        {
-            for (int i = 0; i < InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].channelData.Length; i++)
-            {
-                //Get the random value from the scriptable object and passes it to Csound.
-                csoundUnity.SetChannel(InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].channelData[i].name,
-                    InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
-            }
-        }
+        
     }
 
     /// <summary>
@@ -300,35 +292,23 @@ public class CsoundSender : MonoBehaviour
     {
         RandomChannelValues.randomValueCurrentIndex = index;
 
-        if (!RandomChannelValues.useCurrentPresetRandomValues)
+        for (int i = 0; i < RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData.Length; i++)
         {
-            for (int i = 0; i < RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData.Length; i++)
-            {
-                //Get the random value from the scriptable object and passes it to Csound.
-                csoundUnity.SetChannel(RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData[i].name,
-                    RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
-            }
-        }
-        else
-        {
-            for (int i = 0; i < InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].channelData.Length; i++)
-            {
-                //Get the random value from the scriptable object and passes it to Csound.
-                csoundUnity.SetChannel(InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].channelData[i].name,
-                    InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex].GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
-            }
+            //Get the random value from the scriptable object and passes it to Csound.
+            csoundUnity.SetChannel(RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData[i].name,
+                RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
         }
     }
 
     /// <summary>
     /// Passses in a ChannelData asset to randomize channel values between the defined minValue and maxValue.
     /// </summary>
-    public void SetChannelsToRandomValue(CsoundChannelDataSO newChannelData)
+    public void SetChannelsToRandomValue(CsoundChannelRangeSO newChannelRange)
     {
-        for (int i = 0; i < newChannelData.channelData.Length; i++)
+        for (int i = 0; i < newChannelRange.channelData.Length; i++)
         {
             //Get the random value from the scriptable object and passes it to Csound.
-            csoundUnity.SetChannel(newChannelData.channelData[i].name, newChannelData.GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
+            csoundUnity.SetChannel(newChannelRange.channelData[i].name, newChannelRange.GetRandomValue(i, RandomChannelValues.debugRandomChannelsValues));
         }
     }
 
@@ -374,12 +354,12 @@ public class CsoundSender : MonoBehaviour
 public class CsoundSenderPresets
 {
     [Tooltip("Array containing ChannelData asssets to be used as instrument presets")]
-    public List<CsoundChannelDataSO> presetList = new List<CsoundChannelDataSO>();
+    public List<CsoundUnityPreset> presetList = new List<CsoundUnityPreset>();
     [Tooltip("Defined which preset to be set on start")]
     public int presetIndexOnStart;
     [Tooltip("If true, sets the defined preset value on start")]
     public bool setPresetOnStart;
-    [Tooltip("Prints channel names and values when changing presets.")]
+    [Tooltip("Prints preset name changing presets.")]
     public bool debugPresets;
 
     [HideInInspector] public int presetCurrentIndex = 0;
@@ -416,11 +396,10 @@ public class CsoundSenderTrigger
 [System.Serializable]
 public class CsoundSenderRandomValues
 {
-    [Tooltip("Array of ChannelData assets to be used to randomize channel values.")]
-    public List <CsoundChannelDataSO> randomValueChannelsList = new List<CsoundChannelDataSO>();
+    [Tooltip("Array of ChannelRange assets to be used to randomize channel values.")]
+    public List <CsoundChannelRangeSO> randomValueChannelsList = new List<CsoundChannelRangeSO>();
     public int randomValueIndexOnStart;
     [Tooltip("If true, ignores the randomValueChannels field and uses the current preset minValues and maxValues to generate random values instead.")]
-    public bool useCurrentPresetRandomValues = false;
     public bool setChannelRandomValuesOnStart = false;
     [Tooltip("Prints channel names and values when randomizing values.")]
     public bool debugRandomChannelsValues;

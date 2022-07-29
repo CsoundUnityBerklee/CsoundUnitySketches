@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a185b42e7af674c22ad74983d5ff9611, type: 3}
+  m_Name: STARTER_RandomValues_GranuleraRandomization
+  m_EditorClassIdentifier: 
+  channelData:
+  - name: MidiNote
+    fixedValue: 0
+    minValue: 45
+    maxValue: 85
+  - name: FilterFreq
+    fixedValue: 0
+    minValue: 0.1
+    maxValue: 1
+  - name: Oscillator1Cents
+    fixedValue: 0
+    minValue: -100
+    maxValue: 100
+  - name: Oscillator2Cents
+    fixedValue: 0
+    minValue: -100
+    maxValue: 100
+  - name: Oscillator3Cents
+    fixedValue: 0
+    minValue: -100
+    maxValue: 100
+  - name: WaveformSelection1
+    fixedValue: 0
+    minValue: 1
+    maxValue: 4
+  - name: WaveformSelection2
+    fixedValue: 0
+    minValue: 1
+    maxValue: 4
+  - name: WaveformSelection3
+    fixedValue: 0
+    minValue: 1
+    maxValue: 4
+  - name: GrainDuration
+    fixedValue: 0
+    minValue: 0.05
+    maxValue: 0.2
+  - name: GrainDensity
+    fixedValue: 8
+    minValue: 8
+    maxValue: 20

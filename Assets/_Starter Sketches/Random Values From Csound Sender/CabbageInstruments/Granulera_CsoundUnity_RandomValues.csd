@@ -48,7 +48,7 @@ label bounds(315, 109, 97, 14) text("Windowing") fontColour(255, 255, 255, 255)
 combobox bounds(420, 107, 93, 20) text("Sync", "Hanning", "Blackman-Harris", "Gaussian", "Kaiser", "Rectangle", "") fontColour(188, 151, 49, 255) channel("WindowingSelection") value(2)
 //Freq
 rslider bounds(462, 264, 80, 56) range(1, 1000, 1, 0.5, 1) channel("FrequencyVariationRange") text("Frequency Range") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
-rslider bounds(462, 338, 80, 56) range(0.01, 10, 0.01, 1, 0.01) channel("FrequencyVariationRate") text("Frequency Rate") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
+rslider bounds(462, 338, 80, 56) range(0, 10, 0, 1, 0.1) channel("FrequencyVariationRate") text("Frequency Rate") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
 rslider bounds(422, 133, 80, 56) range(0, 1000, 0, 0.3, 0.01) text("Pitch Variation") channel("PitchVariation") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
 //Duration
 rslider bounds(254, 132, 80, 56) range(0.01, 1, 0.1, 0.5, 0.01) channel("GrainDuration") text("Grain Duration") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
@@ -56,8 +56,8 @@ rslider bounds(294, 264, 80, 56) range(0.01, 1, 0.01, 0.5, 0.01) channel("Durati
 rslider bounds(294, 338, 80, 56) range(0.01, 10, 0.01, 1, 0.1) channel("DurationVariationRate") text("Duration Rate") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
 //Density
 rslider bounds(338, 133, 80, 56) range(0.5, 100, 14, 0.5, 0.1) channel("GrainDensity") text("Grain Density") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
-rslider bounds(378, 264, 80, 56) range(0.01, 100, 0.01, 0.5, 0.01) channel("DensityVariationRange") text("Density Range") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
-rslider bounds(378, 338, 80, 56) range(0.01, 10, 0.01, 1, 0.01) channel("DensityVariationRate") text("Density Rate") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
+rslider bounds(378, 264, 80, 56) range(0.01, 100, 0.01, 0.5, 0.1) channel("DensityVariationRange") text("Density Range") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
+rslider bounds(378, 338, 80, 56) range(0.01, 10, 0.01, 1, 0.1) channel("DensityVariationRate") text("Density Rate") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
 //Phase
 rslider bounds(506, 133, 80, 56) range(0, 1, 1, 1, 0.05) text("Phase Variation") channel("PhaseVariation") trackerColour(188, 151, 49, 255) textColour(255, 255, 255, 255)
 
@@ -221,14 +221,11 @@ endop
 instr OnOff
     kOnOff      chnget "OnOff" 
     kIsOnTrig   changed kOnOff
-    
-    kFreqMidi   chnget "MidiNote"
-    kFreq       cpsmidinn kFreqMidi
-    
+
     //Turn insturment on indefinitely on triggeer and turn it off when trigger is hit again
     if kOnOff == 1 then
         if kIsOnTrig == 1 then
-            event "i", 100, 0, 60*60*24*7, kFreq
+            event "i", 100, 0, 60*60*24*7
         endif
     elseif kOnOff == 0 then
         turnoff2 100, 0, 1
@@ -275,7 +272,7 @@ instr 100
     //Pitch
         kFreqMidi       chnget      "MidiNote"
         kFreq           cpsmidinn   kFreqMidi
-        kFreqMIDI       port        kFreq, 0.02
+        kFreqMIDI       port        kFreq, 0.5
         
         iFreqMIDI = p4
         kPitchVar       chnget "PitchVariation"

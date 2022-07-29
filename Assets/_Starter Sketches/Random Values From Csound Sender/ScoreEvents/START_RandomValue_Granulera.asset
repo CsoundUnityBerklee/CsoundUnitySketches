@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3b24ceb553ff41a8b7b250ab765176a, type: 3}
-  m_Name: STARTER_ScoreEventOnTriggerEnter
+  m_Name: START_RandomValue_Granulera
   m_EditorClassIdentifier: 
   scoreCharacter: i
-  p1Instrument: '"PlaySound"'
+  p1Instrument: 100
   p2Delay: 0
-  p3Duration: 0.5
+  p3Duration: 604800
   pFields:
-  - 1000
-  - 1
+  - 60
