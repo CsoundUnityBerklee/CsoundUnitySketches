@@ -997,8 +997,8 @@ MonoBehaviour:
   _drawTestScore: 0
   _drawSettings: 0
   _drawChannels: 1
-  _drawAudioChannels: 1
-  _drawPresets: 0
+  _drawAudioChannels: 0
+  _drawPresets: 1
   _showRuntimeEnvironmentPath: 0
   _currentPreset: 
 --- !u!82 &2138938841

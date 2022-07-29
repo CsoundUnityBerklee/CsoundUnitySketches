@@ -12,5 +12,3 @@ public class CsoundChannelDataSO : ScriptableObject
 
     public CsoundChannelData[] channelData;
 }
-
-
