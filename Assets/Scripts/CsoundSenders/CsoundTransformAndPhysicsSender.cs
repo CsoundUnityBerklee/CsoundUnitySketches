@@ -2,15 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 //TODO
+    //PACKAGING
+        //Write summaries/comments for all functions
+        //Thorough commenting of code
 
-//PACKAGING
-    //Write summaries/comments for all functions
-    //Thorough commenting of code
-
-//BACKLOG
-    //Angular speed: makes it so it can calculate the angular speed from the transform
-    //Add VelocitySender: pass data based on each individual velocity vector axis 
-    //Rotation: make it so each axis can act as an endless encoder
+    //BACKLOG
+        //Angular speed: makes it so it can calculate the angular speed from the transform
+        //Add VelocitySender: pass data based on each individual velocity vector axis 
+        //Rotation: make it so each axis can act as an endless encoder
 
 /// <summary>
 /// Provides general methods to pass transform and rigidbody behavior data from Unity to Csound
@@ -336,6 +335,10 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
 
     #region ANGULAR SPEED/TORQUE
 
+    /// <summary>
+    /// Starts passing the object's angular speed data into Csound if the bool is true and stops it if false.
+    /// </summary>
+    /// <param name="update"></param>
     public void UpdateAngularSpeed(bool update)
     {
         AngularSpeedSender.updateAngularSpeed = update;
@@ -344,6 +347,9 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + gameObject.name + " update andgular speed = " + AngularSpeedSender.updateAngularSpeed);
     }
 
+    /// <summary>
+	/// Toggles the update angular speed bool to either start or stop passing angular speed data to Csound.
+	/// </summary>
     public void UpdateAngularSpeedToggle()
     {
         if (AngularSpeedSender.updateAngularSpeed)
@@ -355,15 +361,19 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + referenceObject.name + " update andgular speed = " + AngularSpeedSender.updateAngularSpeed);
     }
 
+    //Sends angular speed data into Csound
     private void SendCsoundDataBasedOnAngularSpeed()
     {
+        //Gets the magnitude of the angular velocity vector.
         AngularSpeedSender.rotationSpeed = rigidbody.angularVelocity.magnitude;
 
+        //Cycles through each channel defined in the angular speed channels and assign values.
         foreach (CsoundChannelRangeSO.CsoundChannelData data in AngularSpeedSender.angularSpeedChannels.channelData)
         {
+            //Scales the value passed to Csound based on the minValue and maxValue defined for each channel between 0 (object is stopeed) and the max angular speed value defined in the inspector.
             float value =
                 Mathf.Clamp(ScaleFloat(0, AngularSpeedSender.maxAngularSpeedValue, data.minValue, data.maxValue, rigidbody.angularVelocity.magnitude), data.minValue, data.maxValue);
-
+            //Passes values into Csound.
             csoundUnity.SetChannel(data.name, value);
         }
 
@@ -373,16 +383,24 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     #endregion
 
     #region ROTATION
+    /// <summary>
+    /// Starts passing the object's roation data into Csound if the bool is true and stops it if false.
+	/// </summary>
+	/// <param name="update"></param>
     public void UpdateRotation(bool update)
     {
         RotationSender.updateRotation = update;
 
+        //Gets the object's current rotation in order to calculate its relative rotation.
         GetInitialRotation();
 
         if (RotationSender.debugRotation)
             Debug.Log("CSOUND " + gameObject.name + " update rotation  = " + RotationSender.updateRotation);
     }
 
+    /// <summary>
+	/// Toggles the update roation bool to either start or stop passing angular speed data to Csound.
+	/// </summary>
     public void UpdateRotationToggle()
     {
         if (RotationSender.updateRotation)
@@ -393,6 +411,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         UpdateRotation(RotationSender.updateRotation);
     }
 
+    //Gets the object's initial rotation.
     private void GetInitialRotation()
     {
         if (!RotationSender.useLocalEulerAngles)
@@ -401,6 +420,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             RotationSender.rotationStart = transform.localEulerAngles;
     }
 
+    //Calculates the relative roation by subtracting the current rotation from the starting rotation.
     private void CalculateRelativeRotation()
     {
         if (!RotationSender.useLocalEulerAngles)
@@ -414,22 +434,23 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + referenceObject.name + " relative rotation  = " + RotationSender.rotationRelative);
     }
 
+    //Converts the value from a rotation axis to behave in a circular manner, wrapping around at 180 degrees.
     private float CircularAxisValue(float rotationAxis)
     {
+        //Value that will be passed into Csound.
         float value;
 
+        //If the rotation axis is greater than 180, mirrors the value back.
         if (rotationAxis >= 180)
             value = ((180 * 2) - rotationAxis) * 2;
+        //If rotation axis is lesser than 180, increase the value.
         else
             value = rotationAxis * 2;
-
-        //if (RotationSender.debugRotation)
-        //    Debug.Log("CSOUND " + referenceObject.name + " circular rotation value  = " + value);
-
+        //Returns the value with the wrap around logic.
         return value;
     }
 
-
+    //Passes the X roation axis values to Csound
     private void SetCsoundValuesXRotation()
     {
         if (RotationSender.rotationMode == CsoundRotation.RotationMode.Circular)
@@ -441,6 +462,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         }
     }
 
+    //Passes the Y roation axis values to Csound
     private void SetCsoundValuesYRotation()
     {
         if (RotationSender.rotationMode == CsoundRotation.RotationMode.Circular)
@@ -452,6 +474,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         }
     }
 
+    //Passes the Z roation axis values to Csound
     private void SetCsoundValuesZRotation()
     {
         if (RotationSender.rotationMode == CsoundRotation.RotationMode.Circular)
@@ -462,7 +485,6 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 SetCsoundChannelBasedOnAxis(RotationSender.csoundChannelsRotationZ, 0, 360, CircularAxisValue(RotationSender.rotationRelative.z));
         }
     }
-
     #endregion
 
     #region SCALE MAGNITUDE
@@ -626,18 +648,22 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         return (NewValue);
     }
 
-    //Scales the Channel Data minValue and maxCalue and passes it into Csound, mapping them to a defined range.
+    //Scales the ChannelRange minValue and maxValue and passes it into Csound, mapping them to a defined range.
     private void SetCsoundChannelBasedOnAxis(CsoundChannelRangeSO csoundChannels, float minVectorRange, float maxVectorRange, float vectorAxis)
     {
+        //Cycles through every channel defined in the ChannelRange asset.
         foreach (CsoundChannelRangeSO.CsoundChannelData data in csoundChannels.channelData)
         {
+            //Scales the defined minValue and maxValue variables to a range.
             float value =
                 Mathf.Clamp(ScaleFloat(minVectorRange, maxVectorRange, data.minValue, data.maxValue, vectorAxis), data.minValue, data.maxValue);
 
+            //Passes the vlaue to Csound
             if (!data.returnAbsoluteValue)
             {
                 csoundUnity.SetChannel(data.name, value);
             }
+            //Passes the absolute value to Csound if the bool is checked for the channel.
             else
             {
                 csoundUnity.SetChannel(data.name, Mathf.Abs(value));
