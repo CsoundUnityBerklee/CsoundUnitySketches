@@ -417,7 +417,7 @@ public class CsoundSenderTrigger
 public class CsoundSenderRandomValues
 {
     [Tooltip("Array of ChannelData assets to be used to randomize channel values.")]
-    public List <CsoundChannelDataSO> randomValueChannelsList = new List<CsoundChannelDataSO>();
+    public List <CsoundChannelRangeSO> randomValueChannelsList = new List<CsoundChannelRangeSO>();
     public int randomValueIndexOnStart;
     [Tooltip("If true, ignores the randomValueChannels field and uses the current preset minValues and maxValues to generate random values instead.")]
     public bool useCurrentPresetRandomValues = false;

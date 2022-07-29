@@ -73,6 +73,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     //Waits for Csound to initialize before executing functions on Start.
     private IEnumerator Initialization()
     {
+        ///Waits for CsoundUnity to initialize
         while (!csoundUnity.IsInitialized)
         {
             Debug.Log("CSOUND NOT INITIALIZED");
@@ -81,6 +82,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
 
         Debug.Log("CSOUND INITIALIZED");
 
+        //Start updating values for each module on Start if the bool is toggled in the inspector
         if (SpeedSender.updateSpeedOnStart)
             UpdateSpeed(true);
 
@@ -102,22 +104,18 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!csoundUnity.IsInitialized) return;
-
-        //Calculates speed and send values to Csound.
+        //Calculates speed and send values to Csound if conditions are met.
         if (SpeedSender.updateSpeed && SpeedSender.speedSource != CsoundSpeed.SpeedSource.None)
             SendCsoundDataBasedOnSpeed();
 
-        //Calculates angular speed and send values to Csound.
+        //Calculates angular speed and send values to Csound if conditions are met.
         if (AngularSpeedSender.updateAngularSpeed && AngularSpeedSender.angularSpeedSource != CsoundAngularSpeed.AngularSpeedSource.None)
             SendCsoundDataBasedOnAngularSpeed();
     }
 
     private void LateUpdate()
     {
-        if (!csoundUnity.IsInitialized) return;
-
-        //Passes position values into Csound.
+        //Passes position values into Csound if conditions are met.
         if (PositionSender.updatePosition)
         {
             if (PositionSender.calculateRelativePos)
@@ -134,7 +132,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 SetCsoundValuesPosZ();
         }
 
-        //Passes rotation values into Csound.
+        //Passes rotation values into Csound if conditions are met.
         if (RotationSender.updateRotation)
         {
             CalculateRelativeRotation();
@@ -149,7 +147,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 SetCsoundValuesZRotation();
         }
 
-        //Passes scale axis values into Csound.
+        //Passes scale axis values into Csound if conditions are met.
         if (ScaleAxisSender.updateScaleAxis)
         {
             if (ScaleAxisSender.calculateRelativeScale)
@@ -172,7 +170,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     #region SPEED
     private void SendCsoundDataBasedOnSpeed()
     {
-        //Checks if speed should be calculated from the objects Rigidbody or from the Transform. 
+        //Checks if speed should be calculated from the objects Rigidbody or from the Transform as defined in the inspector.
         if (SpeedSender.speedSource == CsoundSpeed.SpeedSource.Rigidbody)
         {
             //Gets speed from the Rigidbody's velocity.
@@ -180,15 +178,15 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         }
         else if (SpeedSender.speedSource == CsoundSpeed.SpeedSource.Transform)
         {
-            //Calculates speed based on the 
+            //Calculates speed based on the transform position difference between each frame.
             SpeedSender.speed = (referenceObject.transform.position - SpeedSender.previousPosSpeed).magnitude / Time.deltaTime;
             SpeedSender.previousPosSpeed = referenceObject.transform.position;
         }
 
         //Assign values to Csound channels based on the object's speed.
-        foreach (CsoundChannelDataSO.CsoundChannelData channelData in SpeedSender.speedChannelData.channelData)
+        foreach (CsoundChannelRangeSO.CsoundChannelData channelData in SpeedSender.speedChannelData.channelData)
         {
-            //Scales the value passed to Csound based on the minValue and maxValue defined for each channel.
+            //Scales the value passed to Csound based on the minValue and maxValue defined for each channel between 0 (object is stopeed) and the max speed value defined in the inspector
             float scaledSpeedValue =
                 Mathf.Clamp(ScaleFloat(0, SpeedSender.maxSpeedValue, channelData.minValue, channelData.maxValue, SpeedSender.speed), channelData.minValue, channelData.maxValue);
             //Passes values to Csound.
@@ -198,6 +196,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         //Prints speed value on the console.
         if (SpeedSender.debugSpeed)
             Debug.Log(SpeedSender.speed);
+
     }
 
     /// <summary>
@@ -217,7 +216,6 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     /// </summary>
     public void UpdateSpeedToggle()
     {
-
         if (SpeedSender.updateSpeed)
             SpeedSender.updateSpeed = false;
         else if (!SpeedSender.updateSpeed)
@@ -230,7 +228,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
 
     #region POSITION
     /// <summary>
-	/// Starts passing the object's transform position data into Csound if the bool is true, stops it if false.
+	/// Starts passing the object's transform position data into Csound if the bool is true and stops it if false.
 	/// </summary>
 	/// <param name="update"></param>
     public void UpdatePosition(bool update)
@@ -240,6 +238,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (update)
             GetRelativeStartingPosition();
 
+        //Calculates object's position relative to camera if any of the axes are set to RelativeToCamera.
         if (PositionSender.setXPositionTo == CsoundPosition.PositionVectorReference.RelativeToCamera ||
             PositionSender.setYPositionTo == CsoundPosition.PositionVectorReference.RelativeToCamera ||
             PositionSender.setZPositionTo == CsoundPosition.PositionVectorReference.RelativeToCamera)
@@ -305,33 +304,33 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     private void SetCsoundValuesPosX()
     {
         if (PositionSender.setXPositionTo == CsoundPosition.PositionVectorReference.Absolute)
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, transform.position.x, PositionSender.returnAbsoluteValuesPosX);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, transform.position.x);
         else if (PositionSender.setXPositionTo == CsoundPosition.PositionVectorReference.RelativeToCamera)
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, PositionSender.relativeCameraPos.x, PositionSender.returnAbsoluteValuesPosX);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, PositionSender.relativeCameraPos.x);
         else
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, PositionSender.relativePos.x, PositionSender.returnAbsoluteValuesPosX);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosX, PositionSender.posVectorRangesMin.x, PositionSender.posVectorRangesMax.x, PositionSender.relativePos.x);
     }
 
     //Passes the Y position axis values to Csound
     private void SetCsoundValuesPosY()
     {
         if (PositionSender.setYPositionTo == CsoundPosition.PositionVectorReference.Absolute)
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, transform.position.y, PositionSender.returnAbsoluteValuesPosY);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, transform.position.y);
         else if (PositionSender.setXPositionTo == CsoundPosition.PositionVectorReference.RelativeToCamera)
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, PositionSender.relativeCameraPos.y, PositionSender.returnAbsoluteValuesPosY);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, PositionSender.relativeCameraPos.y);
         else
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, PositionSender.relativePos.y, PositionSender.returnAbsoluteValuesPosY);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosY, PositionSender.posVectorRangesMin.y, PositionSender.posVectorRangesMax.y, PositionSender.relativePos.y);
     }
 
     //Passes the Z position axis values to Csound
     private void SetCsoundValuesPosZ()
     {
         if (PositionSender.setZPositionTo == CsoundPosition.PositionVectorReference.Absolute)
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosZ, PositionSender.posVectorRangesMin.z, PositionSender.posVectorRangesMax.z, transform.position.z, PositionSender.returnAbsoluteValuesPosZ);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosZ, PositionSender.posVectorRangesMin.z, PositionSender.posVectorRangesMax.z, transform.position.z);
         else if (PositionSender.setZPositionTo == CsoundPosition.PositionVectorReference.RelativeToCamera)
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosZ, PositionSender.posVectorRangesMin.z, PositionSender.posVectorRangesMax.z, PositionSender.relativeCameraPos.z, PositionSender.returnAbsoluteValuesPosZ);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosZ, PositionSender.posVectorRangesMin.z, PositionSender.posVectorRangesMax.z, PositionSender.relativeCameraPos.z);
         else
-            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosZ, PositionSender.posVectorRangesMin.z, PositionSender.posVectorRangesMax.z, PositionSender.relativePos.z, PositionSender.returnAbsoluteValuesPosZ);
+            SetCsoundChannelBasedOnAxis(PositionSender.csoundChannelsPosZ, PositionSender.posVectorRangesMin.z, PositionSender.posVectorRangesMax.z, PositionSender.relativePos.z);
     }
     #endregion
 
@@ -360,7 +359,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     {
         AngularSpeedSender.rotationSpeed = rigidbody.angularVelocity.magnitude;
 
-        foreach (CsoundChannelDataSO.CsoundChannelData data in AngularSpeedSender.angularSpeedChannels.channelData)
+        foreach (CsoundChannelRangeSO.CsoundChannelData data in AngularSpeedSender.angularSpeedChannels.channelData)
         {
             float value =
                 Mathf.Clamp(ScaleFloat(0, AngularSpeedSender.maxAngularSpeedValue, data.minValue, data.maxValue, rigidbody.angularVelocity.magnitude), data.minValue, data.maxValue);
@@ -511,7 +510,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             ScaleMagnitudeSender.scaleMagnitudeFinal = ScaleMagnitudeSender.scaleMagnitudeCurrent;
         }
 
-        foreach (CsoundChannelDataSO.CsoundChannelData channelData in ScaleMagnitudeSender.scaleMagnitudeChannels.channelData)
+        foreach (CsoundChannelRangeSO.CsoundChannelData channelData in ScaleMagnitudeSender.scaleMagnitudeChannels.channelData)
         {
             //Scales the value passed to Csound based on the minValue and maxValue defined for each channel.
             float scaledValue =
@@ -581,12 +580,12 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (ScaleAxisSender.setXScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
         {
             if (ScaleAxisSender.useLocalScale)
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.localScale.x, ScaleAxisSender.returnAbsoluteValuesScaleX);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.localScale.x);
             else
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.lossyScale.x, ScaleAxisSender.returnAbsoluteValuesScaleX);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, referenceObject.transform.lossyScale.x);
         }
         else
-            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, ScaleAxisSender.relativeScale.x, ScaleAxisSender.returnAbsoluteValuesScaleX);
+            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, ScaleAxisSender.relativeScale.x);
     }
 
     private void SetCsoundValuesScaleY()
@@ -594,12 +593,12 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (ScaleAxisSender.setYScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
         {
             if (ScaleAxisSender.useLocalScale)
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.localScale.y, ScaleAxisSender.returnAbsoluteValuesScaleY);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.localScale.y);
             else
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.lossyScale.y, ScaleAxisSender.returnAbsoluteValuesScaleY);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, referenceObject.transform.lossyScale.y);
         }
         else
-            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, ScaleAxisSender.relativeScale.y, ScaleAxisSender.returnAbsoluteValuesScaleY);
+            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, ScaleAxisSender.relativeScale.y);
     }
 
     private void SetCsoundValuesScaleZ()
@@ -607,12 +606,12 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (ScaleAxisSender.setZScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
         {
             if (ScaleAxisSender.useLocalScale)
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.localScale.z, ScaleAxisSender.returnAbsoluteValuesScaleZ);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.localScale.z);
             else
-                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.lossyScale.z, ScaleAxisSender.returnAbsoluteValuesScaleZ);
+                SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, referenceObject.transform.lossyScale.z);
         }
         else
-            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, ScaleAxisSender.relativeScale.z, ScaleAxisSender.returnAbsoluteValuesScaleZ);
+            SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleZ, ScaleAxisSender.scaleVectorRangesMin.z, ScaleAxisSender.scaleVectorRangesMax.z, ScaleAxisSender.relativeScale.z);
     }
     #endregion
 
@@ -628,14 +627,14 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     }
 
     //Scales the Channel Data minValue and maxCalue and passes it into Csound, mapping them to a defined range.
-    private void SetCsoundChannelBasedOnAxis(CsoundChannelDataSO csoundChannels, float minVectorRange, float maxVectorRange, float vectorAxis, bool returnAbsoluteValue)
+    private void SetCsoundChannelBasedOnAxis(CsoundChannelRangeSO csoundChannels, float minVectorRange, float maxVectorRange, float vectorAxis)
     {
-        foreach (CsoundChannelDataSO.CsoundChannelData data in csoundChannels.channelData)
+        foreach (CsoundChannelRangeSO.CsoundChannelData data in csoundChannels.channelData)
         {
             float value =
                 Mathf.Clamp(ScaleFloat(minVectorRange, maxVectorRange, data.minValue, data.maxValue, vectorAxis), data.minValue, data.maxValue);
 
-            if (!returnAbsoluteValue)
+            if (!data.returnAbsoluteValue)
             {
                 csoundUnity.SetChannel(data.name, value);
             }
@@ -646,17 +645,6 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         }
     }
 
-    //Scales the Channel Data minValue and maxCalue and passes it into Csound, mapping them to a defined range.
-    private void SetCsoundChannelBasedOnAxis(CsoundChannelDataSO csoundChannels, float minVectorRange, float maxVectorRange, float vectorAxis)
-    {
-        foreach (CsoundChannelDataSO.CsoundChannelData data in csoundChannels.channelData)
-        {
-            float value =
-                Mathf.Clamp(ScaleFloat(minVectorRange, maxVectorRange, data.minValue, data.maxValue, vectorAxis), data.minValue, data.maxValue);
-
-            csoundUnity.SetChannel(data.name, value);
-        }
-    }
     #endregion
 }
 
@@ -675,18 +663,15 @@ public class CsoundPosition
 
     [Tooltip("Minimum and maximum transform position values for scaling Csound channel values.")]
     public Vector3 posVectorRangesMax, posVectorRangesMin;
-
-    [Tooltip("Returns only positive value for each position axis")]
-    public bool returnAbsoluteValuesPosX, returnAbsoluteValuesPosY, returnAbsoluteValuesPosZ;
     [Space]
     [Tooltip("Csound channels that will be affected by the position X axis.")]
-    public CsoundChannelDataSO csoundChannelsPosX;
+    public CsoundChannelRangeSO csoundChannelsPosX;
 
     [Tooltip("Csound channels that will be affected by the position Y axis.")]
-    public CsoundChannelDataSO csoundChannelsPosY;
+    public CsoundChannelRangeSO csoundChannelsPosY;
 
     [Tooltip("Csound channels that will be affected by the position Z axis.")]
-    public CsoundChannelDataSO csoundChannelsPosZ;
+    public CsoundChannelRangeSO csoundChannelsPosZ;
 
     [Tooltip("Starts passing position values to Csound on Start.")]
     public bool updatePositionOnStart = false;
@@ -721,13 +706,13 @@ public class CsoundRotation
     public RotationVectorReference setZRotationTo = RotationVectorReference.None;
     [Space]
     [Tooltip("Csound channels that will be affected by the rotation X axis.")]
-    public CsoundChannelDataSO csoundChannelsRotationX;
+    public CsoundChannelRangeSO csoundChannelsRotationX;
 
     [Tooltip("Csound channels that will be affected by the rotation Y axis.")]
-    public CsoundChannelDataSO csoundChannelsRotationY;
+    public CsoundChannelRangeSO csoundChannelsRotationY;
 
     [Tooltip("Csound channels that will be affected by the rotation Z axis.")]
-    public CsoundChannelDataSO csoundChannelsRotationZ;
+    public CsoundChannelRangeSO csoundChannelsRotationZ;
 
     [Tooltip("If true, uses local Euler angles as rotation values")]
     public bool useLocalEulerAngles;
@@ -757,18 +742,15 @@ public class CsoundScaleAxis
 
     [Tooltip("Minimum and maximum transform scale values for scaling Csound channel values.")]
     public Vector3 scaleVectorRangesMax, scaleVectorRangesMin;
-
-    [Tooltip("Returns only positive values for each scale axis")]
-    public bool returnAbsoluteValuesScaleX = true, returnAbsoluteValuesScaleY = true, returnAbsoluteValuesScaleZ = true;
     [Space]
     [Tooltip("Csound channels that will be affected by the scale X axis.")]
-    public CsoundChannelDataSO csoundChannelsScaleX;
+    public CsoundChannelRangeSO csoundChannelsScaleX;
 
     [Tooltip("Csound channels that will be affected by the scale Y axis.")]
-    public CsoundChannelDataSO csoundChannelsScaleY;
+    public CsoundChannelRangeSO csoundChannelsScaleY;
 
     [Tooltip("Csound channels that will be affected by the scale Z axis.")]
-    public CsoundChannelDataSO csoundChannelsScaleZ;
+    public CsoundChannelRangeSO csoundChannelsScaleZ;
 
     [Tooltip("If true, uses local scale. If false, uses lossy scale values.")]
     public bool useLocalScale = true;
@@ -792,7 +774,7 @@ public class CsoundScaleMagnitude
     public ScaleMagnitudeVectorReference setScaleMagnitudeTo = ScaleMagnitudeVectorReference.Relative;
 
     [Tooltip("Csound channels that will be affected by the object's scale magnitude value.")]
-    public CsoundChannelDataSO scaleMagnitudeChannels;
+    public CsoundChannelRangeSO scaleMagnitudeChannels;
 
     [Tooltip("Maximum scale magnitude value used for scaling Csound channel values.")]
     public float scaleMagnitudeMax;
@@ -818,7 +800,7 @@ public class CsoundSpeed
     public SpeedSource speedSource = SpeedSource.None;
 
     [Tooltip("Csound channels that will be affected by the object's speed.")]
-    public CsoundChannelDataSO speedChannelData;
+    public CsoundChannelRangeSO speedChannelData;
 
     [Tooltip("Maximum speed value used for scaling Csound channel values.")]
     public float maxSpeedValue;
@@ -842,7 +824,7 @@ public class CsoundAngularSpeed
     public AngularSpeedSource angularSpeedSource = AngularSpeedSource.None;
 
     [Tooltip("Csound channels that will be affected by the object's angular speed.")]
-    public CsoundChannelDataSO angularSpeedChannels;
+    public CsoundChannelRangeSO angularSpeedChannels;
 
     [Tooltip("Maximum angular speed value used for scaling Csound channel values.")]
     public float maxAngularSpeedValue;
