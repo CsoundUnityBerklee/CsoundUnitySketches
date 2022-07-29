@@ -765,9 +765,6 @@ MonoBehaviour:
     setZPositionTo: 3
     posVectorRangesMax: {x: 0, y: 0, z: 0}
     posVectorRangesMin: {x: 0, y: 0, z: 0}
-    returnAbsoluteValuesPosX: 0
-    returnAbsoluteValuesPosY: 0
-    returnAbsoluteValuesPosZ: 0
     csoundChannelsPosX: {fileID: 0}
     csoundChannelsPosY: {fileID: 0}
     csoundChannelsPosZ: {fileID: 0}
@@ -802,12 +799,9 @@ MonoBehaviour:
     setZScaleTo: 0
     scaleVectorRangesMax: {x: 10, y: 7, z: 10}
     scaleVectorRangesMin: {x: -10, y: -7, z: -10}
-    returnAbsoluteValuesScaleX: 1
-    returnAbsoluteValuesScaleY: 1
-    returnAbsoluteValuesScaleZ: 1
-    csoundChannelsScaleX: {fileID: 11400000, guid: 26ce6784b35164ea89be78576434bfba, type: 2}
-    csoundChannelsScaleY: {fileID: 11400000, guid: 3f2c64c0e5dd94923b71110ce73c7883, type: 2}
-    csoundChannelsScaleZ: {fileID: 11400000, guid: 3a0811ec1661d4aa08c89bed84685c92, type: 2}
+    csoundChannelsScaleX: {fileID: 11400000, guid: 44decc57d83ae498a81d84477b4d52cc, type: 2}
+    csoundChannelsScaleY: {fileID: 11400000, guid: 5f52aa2f8b1474464b94a746258bd84a, type: 2}
+    csoundChannelsScaleZ: {fileID: 11400000, guid: 5117f716159f84905819bfb402d288b3, type: 2}
     useLocalScale: 0
     updateScaleOnStart: 1
     debugScaleAxis: 1
@@ -1085,7 +1079,9 @@ MonoBehaviour:
   _drawSettings: 0
   _drawChannels: 1
   _drawAudioChannels: 1
+  _drawPresets: 0
   _showRuntimeEnvironmentPath: 0
+  _currentPreset: 
 --- !u!82 &2138938841
 AudioSource:
   m_ObjectHideFlags: 0

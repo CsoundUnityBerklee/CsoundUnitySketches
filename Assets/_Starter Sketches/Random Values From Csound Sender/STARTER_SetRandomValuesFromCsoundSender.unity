@@ -444,7 +444,7 @@ MonoBehaviour:
     triggerValue: 0
   RandomChannelValues:
     randomValueChannelsList:
-    - {fileID: 11400000, guid: dc75835b0dc66451f828a42d6a6dbf25, type: 2}
+    - {fileID: 11400000, guid: c83de36de4f3443bdb0f01a511cff14c, type: 2}
     randomValueIndexOnStart: 0
     useCurrentPresetRandomValues: 0
     setChannelRandomValuesOnStart: 0
@@ -1650,7 +1650,9 @@ MonoBehaviour:
   _drawSettings: 0
   _drawChannels: 1
   _drawAudioChannels: 0
+  _drawPresets: 0
   _showRuntimeEnvironmentPath: 0
+  _currentPreset: 
 --- !u!82 &740359862
 AudioSource:
   m_ObjectHideFlags: 0

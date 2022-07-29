@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a185b42e7af674c22ad74983d5ff9611, type: 3}
-  m_Name: STARTER_MapScale_X
+  m_Script: {fileID: 11500000, guid: cfddfa2529aa84dd4a8b2d0bf8752f1f, type: 3}
+  m_Name: STARTER_ChannelRange_ScaleX
   m_EditorClassIdentifier: 
   channelData:
   - name: vibfreq
-    fixedValue: 0
     minValue: -10
     maxValue: 10
+    returnAbsoluteValue: 1
   - name: vibamp
-    fixedValue: 0
     minValue: -5
     maxValue: 5
+    returnAbsoluteValue: 1
   - name: pulsewidth
-    fixedValue: 0
     minValue: -0.9
     maxValue: 0.9
+    returnAbsoluteValue: 1
