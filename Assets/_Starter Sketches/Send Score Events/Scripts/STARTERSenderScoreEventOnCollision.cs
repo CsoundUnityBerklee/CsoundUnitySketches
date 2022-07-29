@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class STARTERCsoundSenderScoreEventOnCollision : MonoBehaviour
+public class STARTERSenderScoreEventOnCollision : MonoBehaviour
 {
     private CsoundSender csoundSender;
     private float collisionImpulseMultiplier = 200;

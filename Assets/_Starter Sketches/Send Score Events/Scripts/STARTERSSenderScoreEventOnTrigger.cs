@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class STARTERSCsoundSenderScoreEventOnTrigger : MonoBehaviour
+public class STARTERSSenderScoreEventOnTrigger : MonoBehaviour
 {
     private CsoundSender csoundSender;
 
