@@ -90,7 +90,7 @@ public class CsoundSender : MonoBehaviour
         csoundUnity.SetPreset(InstrumentPresets.presetList[index]);
 
         if (InstrumentPresets.debugPresets)
-            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[index]);
+            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
     }
 
     /// <summary>
@@ -103,6 +103,9 @@ public class CsoundSender : MonoBehaviour
         InstrumentPresets.presetList.Add(preset);
         //Calls SetPreset passing in the last item as the index.
         SetPreset(InstrumentPresets.presetList.Count - 1);
+
+        if (InstrumentPresets.debugPresets)
+            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
     }
 
     /// <summary>
@@ -110,8 +113,42 @@ public class CsoundSender : MonoBehaviour
 	/// </summary>
     public void SetRandomPreset()
     {
-        int randomIndex = Random.Range(0, InstrumentPresets.presetList.Count);
-        SetPreset(randomIndex);
+        //Set preset index to a random number within the range of the lsit.
+        InstrumentPresets.presetCurrentIndex = Random.Range(0, InstrumentPresets.presetList.Count);
+        //Sets the random preset.
+        SetPreset(InstrumentPresets.presetCurrentIndex);
+    }
+
+    /// <summary>
+	/// Set the currently indexed preset and increments the index, cycling back to 0 if it reaches the end of the list.
+	/// </summary>
+    public void SetNextPreset()
+    {
+        //Sets the currently indexed preset.
+        ResetPreset();
+        //Increments preset index.
+        InstrumentPresets.presetCurrentIndex++;
+        //Restes index to 0 if it goes above the list count
+        if(InstrumentPresets.presetCurrentIndex > InstrumentPresets.presetList.Count - 1)
+        {
+            InstrumentPresets.presetCurrentIndex = 0;
+        }
+    }
+
+    /// <summary>
+    /// Set the currently indexed preset and decreases the index, cycling back to the end of the list if it reaches 0.
+    /// </summary>
+    public void SetPreviousPreset()
+    {
+        //Sets the currently indexed preset.
+        ResetPreset();
+        //Decreases preset index.
+        InstrumentPresets.presetCurrentIndex--;
+        //Rests the index to the top of the list if it reaches 0.
+        if (InstrumentPresets.presetCurrentIndex < 0)
+        {
+            InstrumentPresets.presetCurrentIndex = InstrumentPresets.presetList.Count - 1;
+        }
     }
 
     #endregion
@@ -225,6 +262,9 @@ public class CsoundSender : MonoBehaviour
         ScoreEvents.scoreEventsList.Add(scoreEvent);
         //Calls SendScoreEvent passing in the last item as the index.
         SendScoreEvent(ScoreEvents.scoreEventsList.Count - 1);
+
+        if (ScoreEvents.debugScoreEvents)
+            Debug.Log("CSOUND " + gameObject.name + " score event: " + scoreEvent + " " + scoreEvent.ConcatenateScoreEventString());
     }
 
     /// <summary>
@@ -265,6 +305,49 @@ public class CsoundSender : MonoBehaviour
         if (ScoreEvents.debugScoreEvents)
             Debug.Log("CSOUND" + gameObject.name + " score event: " + scorechar + " " + instrument + " " + delay + " " + duration + " " + concatenatedPFields);
 
+    }
+
+    /// <summary>
+	/// Sends the currently indexed score event and increments the index, cycling back to the beginning of the list when it reaches the end.
+	/// </summary>
+    public void SendNextScoreEvent()
+    {
+        //Sends currently indexed score event.
+        SendScoreEvent();
+        //Increments the index.
+        ScoreEvents.scoreEventCurrentIndex++;
+        //Resets index to 0 if it goes above the list count.
+        if(ScoreEvents.scoreEventCurrentIndex > ScoreEvents.scoreEventsList.Count - 1)
+        {
+            ScoreEvents.scoreEventCurrentIndex = 0;
+        }
+    }
+
+    /// <summary>
+    /// Sends the currently indexed score event and decreases the index, cycling back to the end of the list when it reaches 0.
+    /// </summary>
+    public void SendPreviousScoreEvent()
+    {
+        //Sends currently indexed score event.
+        SendScoreEvent();
+        //Decreases the index.
+        ScoreEvents.scoreEventCurrentIndex--;
+        //Rests the index to the top of the list if it reaches 0.
+        if (ScoreEvents.scoreEventCurrentIndex < 0)
+        {
+            ScoreEvents.scoreEventCurrentIndex = ScoreEvents.scoreEventsList.Count - 1;
+        }
+    }
+
+    /// <summary>
+	/// Sends a random score event from the list.
+	/// </summary>
+    public void SendRandomScoreEvent()
+    {
+        //Generates a random score event index.
+        ScoreEvents.scoreEventCurrentIndex = Random.Range(0, ScoreEvents.scoreEventsList.Count - 1);
+        //Sends the random score event.
+        SendScoreEvent();
     }
 
     #endregion
