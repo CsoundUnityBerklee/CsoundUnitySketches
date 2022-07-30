@@ -15,20 +15,11 @@ public class STARTCScoreEventCycleOnCoroutine : MonoBehaviour
 
     private IEnumerator ScoreEventCycle()
     {
-        //Sends currently indexed score event from the list in the inspector.
-        csoundSender.SendScoreEvent();
-        //Waits for the current score event duration.
-        yield return new WaitForSeconds(csoundSender.ScoreEvents.scoreEventsList[csoundSender.ScoreEvents.scoreEventCurrentIndex].p3Duration);
-        //Reset index back to 0 if it reaches the end of the list.
-        if(csoundSender.ScoreEvents.scoreEventCurrentIndex == csoundSender.ScoreEvents.scoreEventsList.Count - 1)
-        {
-            csoundSender.ScoreEvents.scoreEventCurrentIndex = 0;
-        }
-        else
-        {
-            csoundSender.ScoreEvents.scoreEventCurrentIndex++;
-        }
-        //Repeats the cycle
+        //Sends Score Event and increment index.
+        csoundSender.SendRandomScoreEvent();
+        //Waits 0.5 seconds between score events. 
+        yield return new WaitForSeconds(0.5f);
+        //Calls the coroutine again to repeat the cycle.
         StartCoroutine(ScoreEventCycle());
     }
 }
