@@ -16,6 +16,8 @@ public class CsoundSender : MonoBehaviour
     [Space]
     public CsoundSenderTrigger ChannelTrigger;
     [Space]
+    public CsoundSenderChannelValues ChannelValues;
+    [Space]
     public CsoundSenderRandomValues RandomChannelValues;
 
     #region UNITY LIFE CYCLE
@@ -60,7 +62,11 @@ public class CsoundSender : MonoBehaviour
 
         //Calls SetChannelsToRandomValue if setChannelRandomValuesOnStart is true.
         if (RandomChannelValues.setChannelRandomValuesOnStart)
-            SetChannelsToRandomValue();
+            SetChannelsToRandomValue(RandomChannelValues.randomValueIndexOnStart);
+
+        //Calls SetChannelValue if setChannelValueOnStart is true.
+        if (ChannelValues.setChannelValueOnStart)
+            SetChannelValue(ChannelValues.channelValueIndexOnStart);
     }
     #endregion
 
@@ -99,13 +105,10 @@ public class CsoundSender : MonoBehaviour
     /// <param name="preset"></param>
     public void SetPreset(CsoundUnityPreset preset)
     {
-        //Adds new channel data to the preset list as the last item.
+        //Adds new item to the preset list as the last item.
         InstrumentPresets.presetList.Add(preset);
         //Calls SetPreset passing in the last item as the index.
         SetPreset(InstrumentPresets.presetList.Count - 1);
-
-        if (InstrumentPresets.debugPresets)
-            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
     }
 
     /// <summary>
@@ -358,7 +361,6 @@ public class CsoundSender : MonoBehaviour
     /// </summary>
     public void SetChannelsToRandomValue()
     {
-
         for (int i = 0; i < RandomChannelValues.randomValueChannelsList[RandomChannelValues.randomValueCurrentIndex].channelData.Length; i++)
         {
             //Get the random value from the scriptable object and passes it to Csound.
@@ -409,7 +411,7 @@ public class CsoundSender : MonoBehaviour
         csoundUnity.SetChannel(channelName, randomValue);
 
         if (RandomChannelValues.debugRandomChannelsValues)
-            Debug.Log(gameObject.name + " channel value: " + channelName + " , " + randomValue);
+            Debug.Log("CSOUND " + gameObject.name + " channel random value: " + channelName + " , " + randomValue);
     }
 
     /// <summary>
@@ -427,7 +429,98 @@ public class CsoundSender : MonoBehaviour
             csoundUnity.SetChannel(name, randomValue);
 
             if (RandomChannelValues.debugRandomChannelsValues)
-                Debug.Log(gameObject.name + " channel value: " + name + " , " + randomValue);
+                Debug.Log("CSOUND " + gameObject.name + " channel random value: " + name + " , " + randomValue);
+        }
+    }
+    #endregion
+
+    #region SET CHANNEL VALUES
+    /// <summary>
+	/// Sends the currently indexed Channel Values to Csound.
+	/// </summary>
+    public void SetChannelValue()
+    {
+        foreach(CsoundChannelValueSO.CsoundChannelData data in ChannelValues.setChannelValuesList[ChannelValues.channelValueCurrentIndex].channelData)
+        {
+            csoundUnity.SetChannel(data.name, data.value);
+        }
+
+        if (ChannelValues.debugChannelsValues)
+            Debug.Log("CSOUND " + gameObject.name + " channel values: " + ChannelValues.setChannelValuesList[ChannelValues.channelValueCurrentIndex]);
+    }
+
+    /// <summary>
+	/// Sets channel values according to the passed in index.
+	/// </summary>
+	/// <param name="index"></param>
+    public void SetChannelValue(int index)
+    {
+        ChannelValues.channelValueCurrentIndex = index;
+
+        foreach (CsoundChannelValueSO.CsoundChannelData data in ChannelValues.setChannelValuesList[ChannelValues.channelValueCurrentIndex].channelData)
+        {
+            csoundUnity.SetChannel(data.name, data.value);
+        }
+
+        if (ChannelValues.debugChannelsValues)
+            Debug.Log("CSOUND " + gameObject.name + " channel values: " + ChannelValues.setChannelValuesList[ChannelValues.channelValueCurrentIndex]);
+    }
+
+    /// <summary>
+	/// Sends the passsed in channel values to Csound.
+	/// </summary>
+	/// <param name="channelValue"></param>
+    public void SetChannelValue(CsoundChannelValueSO channelValue)
+    {
+        foreach (CsoundChannelValueSO.CsoundChannelData data in channelValue.channelData)
+        {
+            csoundUnity.SetChannel(data.name, data.value);
+        }
+
+        if (ChannelValues.debugChannelsValues)
+            Debug.Log("CSOUND " + gameObject.name + " channel values: " + channelValue);
+    }
+
+    /// <summary>
+    /// Adds the Channel Value asset ot the lsit and sets its values.
+    /// </summary>
+    public void SetChannelValueAndAddToList(CsoundChannelValueSO channelValue)
+    {
+        //Adds new item to the channel valuelist as the last item.
+        ChannelValues.setChannelValuesList.Add(channelValue);
+        //Calls SetPreset passing in the last item as the index.
+        SetChannelValue(ChannelValues.setChannelValuesList.Count - 1);
+    }
+
+    /// <summary>
+	/// Sets the currently index channel value and increments the index, cycling back to the beginning if it reaches the end of the list.
+	/// </summary>
+    public void SetNextChannelValue()
+    {
+        //Sets currently indexed channel value.
+        SetChannelValue();
+        //Increments the index.
+        ChannelValues.channelValueCurrentIndex++;
+        //Resets index to 0 if it reaches the end of the list.
+        if(ChannelValues.channelValueCurrentIndex > ChannelValues.setChannelValuesList.Count - 1)
+        {
+            ChannelValues.channelValueCurrentIndex = 0;
+        }
+    }
+
+    /// <summary>
+    /// Sets the currently index channel value and decreases the index the index, cycling back to the end of the list if it reaches 0.
+    /// </summary>
+    public void SetPreviousChannelValue()
+    {
+        //Sets currently indexed channel value.
+        SetChannelValue();
+        //Decreases the index.
+        ChannelValues.channelValueCurrentIndex--;
+        //Resets index to the end of the list if it reaches 0.
+        if (ChannelValues.channelValueCurrentIndex < 0)
+        {
+            ChannelValues.channelValueCurrentIndex = ChannelValues.setChannelValuesList.Count - 1;
         }
     }
     #endregion
@@ -477,12 +570,26 @@ public class CsoundSenderTrigger
 }
 
 [System.Serializable]
+public class CsoundSenderChannelValues
+{
+    [Tooltip("List of channels and values to set them to")]
+    public List<CsoundChannelValueSO> setChannelValuesList = new List<CsoundChannelValueSO>();
+    public int channelValueIndexOnStart;
+    [Tooltip("If true, sets channel values on start.")]
+    public bool setChannelValueOnStart = false;
+    [Tooltip("Prints channel names and value when setting them.")]
+    public bool debugChannelsValues;
+
+    [HideInInspector] public int channelValueCurrentIndex = 0;
+}
+
+[System.Serializable]
 public class CsoundSenderRandomValues
 {
-    [Tooltip("Array of ChannelRange assets to be used to randomize channel values.")]
+    [Tooltip("List of ChannelRange assets to be used to randomize channel values.")]
     public List <CsoundChannelRangeSO> randomValueChannelsList = new List<CsoundChannelRangeSO>();
     public int randomValueIndexOnStart;
-    [Tooltip("If true, ignores the randomValueChannels field and uses the current preset minValues and maxValues to generate random values instead.")]
+    [Tooltip("If true, sets channels to random values on start.")]
     public bool setChannelRandomValuesOnStart = false;
     [Tooltip("Prints channel names and values when randomizing values.")]
     public bool debugRandomChannelsValues;
