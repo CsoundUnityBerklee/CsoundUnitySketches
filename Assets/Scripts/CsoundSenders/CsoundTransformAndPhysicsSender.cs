@@ -488,7 +488,10 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     #endregion
 
     #region SCALE MAGNITUDE
-
+    /// <summary>
+    /// Starts passing the object's scale magnitude data into Csound if the bool is true and stops it if false.
+    /// </summary>
+    /// <param name="update"></param>
     public void UpdateScaleMagnitude(bool update)
     {
         ScaleMagnitudeSender.updateScaleMagnitude = update;
@@ -501,11 +504,13 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
                 ScaleMagnitudeSender.scaleMagnitudeStart = referenceObject.transform.lossyScale.magnitude;
         }
 
-
         if (ScaleMagnitudeSender.debugScaleMagnitude)
             Debug.Log("CSOUND " + gameObject.name + " update scale magnitude = " + ScaleMagnitudeSender.updateScaleMagnitude);
     }
 
+    /// <summary>
+    /// Toggles the update scale magnitude bool to either start or stop passing angular speed data to Csound.
+    /// </summary>
     public void UpdateScaleMagnitudeToggle()
     {
         if (ScaleMagnitudeSender.updateScaleMagnitude)
@@ -516,22 +521,26 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         UpdateScaleMagnitude(ScaleMagnitudeSender.updateScaleMagnitude);
     }
 
+    //Sends data to Csound based on the magnitude of the object's scale.
     private void SendCsoundDataBasedOnScaleMagnitude()
     {
+        //Checks if ti should use the object's local or lossy scale.
         if (ScaleMagnitudeSender.useLocalScaleMagnitude)
             ScaleMagnitudeSender.scaleMagnitudeCurrent = referenceObject.transform.localScale.magnitude;
         else
             ScaleMagnitudeSender.scaleMagnitudeCurrent = referenceObject.transform.lossyScale.magnitude;
-
+        //Checks if scale magnitude should be absolute or relative
         if (ScaleMagnitudeSender.setScaleMagnitudeTo == CsoundScaleMagnitude.ScaleMagnitudeVectorReference.Relative)
         {
+            //Calculates the relative scale magnitude by subtracting the starting scale magnitude from the current scale magnitude.
             ScaleMagnitudeSender.scaleMagnitudeFinal = ScaleMagnitudeSender.scaleMagnitudeCurrent - ScaleMagnitudeSender.scaleMagnitudeStart;
         }
         else if (ScaleMagnitudeSender.setScaleMagnitudeTo == CsoundScaleMagnitude.ScaleMagnitudeVectorReference.Absolute)
         {
+            //gets the absolute scale magnitude.
             ScaleMagnitudeSender.scaleMagnitudeFinal = ScaleMagnitudeSender.scaleMagnitudeCurrent;
         }
-
+        //Passes data into Csound.
         foreach (CsoundChannelRangeSO.CsoundChannelData channelData in ScaleMagnitudeSender.scaleMagnitudeChannels.channelData)
         {
             //Scales the value passed to Csound based on the minValue and maxValue defined for each channel.
@@ -548,6 +557,10 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
     #endregion
 
     #region SCALE AXIS
+    /// <summary>
+    /// Starts passing the object's individual scale axis data into Csound if the bool is true and stops it if false.
+    /// </summary>
+    /// <param name="update"></param>
     public void UpdateScaleAxis(bool update)
     {
         ScaleAxisSender.updateScaleAxis = update;
@@ -555,6 +568,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         if (update)
             GetRelativeStartingScale();
 
+        //Checks if it should calculate the relative scale for any axis.
         if (ScaleAxisSender.setXScaleTo == CsoundScaleAxis.ScaleVectorReference.Relative ||
             ScaleAxisSender.setYScaleTo == CsoundScaleAxis.ScaleVectorReference.Relative ||
             ScaleAxisSender.setZScaleTo == CsoundScaleAxis.ScaleVectorReference.Relative)
@@ -564,6 +578,9 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + referenceObject.name + " update scale axis = " + ScaleAxisSender.updateScaleAxis);
     }
 
+    /// <summary>
+    /// Toggles the update scale axis bool to either start or stop passing angular speed data to Csound.
+    /// </summary>
     public void UpdateScaleAxisToggle()
     {
         if (ScaleAxisSender.updateScaleAxis)
@@ -574,6 +591,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
         UpdateScaleAxis(ScaleAxisSender.updateScaleAxis);
     }
 
+    //Gets the object starting scale.
     private void GetRelativeStartingScale()
     {
         if (ScaleAxisSender.useLocalScale)
@@ -582,6 +600,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             ScaleAxisSender.startScale = referenceObject.transform.lossyScale;
     }
 
+    //Calculates the relative scale by subtracting the starting scale from the current scale.
     private void CalculateRelativeScale()
     {
         if (ScaleAxisSender.useLocalScale)
@@ -597,6 +616,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             Debug.Log("CSOUND " + referenceObject.name + " relative scale: " + ScaleAxisSender.relativeScale);
     }
 
+    //Sends scale values to Csound for the X axis.
     private void SetCsoundValuesScaleX()
     {
         if (ScaleAxisSender.setXScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
@@ -610,6 +630,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleX, ScaleAxisSender.scaleVectorRangesMin.x, ScaleAxisSender.scaleVectorRangesMax.x, ScaleAxisSender.relativeScale.x);
     }
 
+    //Sends scale values to Csound for the Y axis.
     private void SetCsoundValuesScaleY()
     {
         if (ScaleAxisSender.setYScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
@@ -623,6 +644,7 @@ public class CsoundTransformAndPhysicsSender : MonoBehaviour
             SetCsoundChannelBasedOnAxis(ScaleAxisSender.csoundChannelsScaleY, ScaleAxisSender.scaleVectorRangesMin.y, ScaleAxisSender.scaleVectorRangesMax.y, ScaleAxisSender.relativeScale.y);
     }
 
+    //Sends scale values to Csound for the Z axis.
     private void SetCsoundValuesScaleZ()
     {
         if (ScaleAxisSender.setZScaleTo == CsoundScaleAxis.ScaleVectorReference.Absolute)
