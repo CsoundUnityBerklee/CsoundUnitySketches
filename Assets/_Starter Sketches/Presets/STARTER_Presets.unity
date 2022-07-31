@@ -2334,6 +2334,12 @@ MonoBehaviour:
     triggerOnStart: 0
     debugTrigger: 1
     triggerValue: 0
+  ChannelValues:
+    setChannelValuesList: []
+    channelValueIndexOnStart: 0
+    setChannelValueOnStart: 0
+    debugChannelsValues: 0
+    channelValueCurrentIndex: 0
   RandomChannelValues:
     randomValueChannelsList: []
     randomValueIndexOnStart: 0
@@ -2624,6 +2630,8 @@ MonoBehaviour:
   _drawPresets: 1
   _showRuntimeEnvironmentPath: 0
   _currentPreset: STARTER_Trapped12_Preset01
+  _currentPresetSaveFolder: /Users/caiojmini/Documents/_CaioDocs/Unity/CsoundUnity/CsoundUnityBerklee/CsoundUnitySketches/Assets/_Starter
+    Sketches/Presets/Presets
 --- !u!82 &1729035111
 AudioSource:
   m_ObjectHideFlags: 0

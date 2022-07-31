@@ -205,4 +205,4 @@ MonoBehaviour:
     skew: 0
     increment: 0
     options: []
-  _drawChannels: 0
+  _drawChannels: 1
