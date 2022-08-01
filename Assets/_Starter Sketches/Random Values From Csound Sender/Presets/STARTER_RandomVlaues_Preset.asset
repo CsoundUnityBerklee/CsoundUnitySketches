@@ -1,0 +1,803 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc83b726b41f0c4ba68dac38255a4dd, type: 3}
+  m_Name: STARTER_RandomVlaues_Preset
+  m_EditorClassIdentifier: 
+  presetName: STARTER_RandomVlaues_Preset
+  csoundFileName: Granulera_CsoundUnity_RandomValues.csd
+  channels:
+  - type: button
+    channel: OnOff
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: MidiNote
+    text: 
+    caption: 
+    min: 0
+    max: 127
+    value: 56.3
+    skew: 0
+    increment: 0
+    options: []
+  - type: form
+    channel: 
+    text: 
+    caption: Granulera by Caio M. Jiacomini
+    min: 0
+    max: 0
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: button
+    channel: VelocityButton
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: combobox
+    channel: WaveformSelection1
+    text: 
+    caption: 
+    min: 1
+    max: 5
+    value: 1
+    skew: 0
+    increment: 0
+    options:
+    - Sine
+    - Triangle
+    - Sawtooth
+    - Square
+    - Pulse
+  - type: hslider
+    channel: Oscillator1Volume
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: Oscillator1Semitone
+    text: 
+    caption: 
+    min: -24
+    max: 24
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: Oscillator1Cents
+    text: 
+    caption: 
+    min: -100
+    max: 100
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: combobox
+    channel: WaveformSelection2
+    text: 
+    caption: 
+    min: 1
+    max: 5
+    value: 1
+    skew: 0
+    increment: 0
+    options:
+    - Sine
+    - Triangle
+    - Sawtooth
+    - Square
+    - Pulse
+  - type: hslider
+    channel: Oscillator2Volume
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: Oscillator2Semitone
+    text: 
+    caption: 
+    min: -24
+    max: 24
+    value: 7
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: Oscillator2Cents
+    text: 
+    caption: 
+    min: -100
+    max: 100
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: combobox
+    channel: WaveformSelection3
+    text: 
+    caption: 
+    min: 1
+    max: 5
+    value: 1
+    skew: 0
+    increment: 0
+    options:
+    - Sine
+    - Triangle
+    - Sawtooth
+    - Square
+    - Pulse
+  - type: hslider
+    channel: Oscillator3Volume
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: Oscillator3Semitone
+    text: 
+    caption: 
+    min: -24
+    max: 24
+    value: 16
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: Oscillator3Cents
+    text: 
+    caption: 
+    min: -100
+    max: 100
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: GrainSpread
+    text: 
+    caption: 
+    min: 0
+    max: 0.5
+    value: 0.5
+    skew: 0
+    increment: 0
+    options: []
+  - type: combobox
+    channel: WindowingSelection
+    text: 
+    caption: 
+    min: 1
+    max: 7
+    value: 3
+    skew: 0
+    increment: 0
+    options:
+    - Sync
+    - Hanning
+    - Blackman-Harris
+    - Gaussian
+    - Kaiser
+    - Rectangle
+    - 
+  - type: rslider
+    channel: FrequencyVariationRange
+    text: 
+    caption: 
+    min: 1
+    max: 1000
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FrequencyVariationRate
+    text: 
+    caption: 
+    min: 0
+    max: 10
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: PitchVariation
+    text: 
+    caption: 
+    min: 0
+    max: 1000
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: GrainDuration
+    text: 
+    caption: 
+    min: 0.01
+    max: 1
+    value: 0.118
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: DurationVariationRange
+    text: 
+    caption: 
+    min: 0.01
+    max: 1
+    value: 0.049
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: DurationVariationRate
+    text: 
+    caption: 
+    min: 0.01
+    max: 10
+    value: 1.12
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: GrainDensity
+    text: 
+    caption: 
+    min: 0.5
+    max: 100
+    value: 10.4
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: DensityVariationRange
+    text: 
+    caption: 
+    min: 0.01
+    max: 100
+    value: 1.9
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: DensityVariationRate
+    text: 
+    caption: 
+    min: 0.01
+    max: 10
+    value: 0.98
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: PhaseVariation
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: button
+    channel: FilterNoteTrack
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: combobox
+    channel: FilterSelection
+    text: 
+    caption: 
+    min: 1
+    max: 3
+    value: 0
+    skew: 0
+    increment: 0
+    options:
+    - LowPass
+    - HighPass
+    - BandPass
+  - type: rslider
+    channel: FilterFreq
+    text: 
+    caption: 
+    min: 0.001
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterRange
+    text: 
+    caption: 
+    min: 0.001
+    max: 1
+    value: 0.001
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterReson
+    text: 
+    caption: 
+    min: 1
+    max: 50
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterBW
+    text: 
+    caption: 
+    min: 1
+    max: 5000
+    value: 1000
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterAttack
+    text: 
+    caption: 
+    min: 0.01
+    max: 10.01
+    value: 0.01
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterDecay
+    text: 
+    caption: 
+    min: 0.01
+    max: 10.01
+    value: 0.01
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterSustain
+    text: 
+    caption: 
+    min: 0.01
+    max: 1.01
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FilterRelease
+    text: 
+    caption: 
+    min: 0.01
+    max: 10.01
+    value: 0.1
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoDurRange
+    text: 
+    caption: 
+    min: 0
+    max: 0.7
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoDurFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoDensityRange
+    text: 
+    caption: 
+    min: 0
+    max: 100
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoDensityFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoFilterRange
+    text: 
+    caption: 
+    min: 0
+    max: 0.5
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoFilterFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoAmpRange
+    text: 
+    caption: 
+    min: 0
+    max: 0.5
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoAmpFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoPanRange
+    text: 
+    caption: 
+    min: 0
+    max: 0.5
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoPanFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoTuningRange
+    text: 
+    caption: 
+    min: 0
+    max: 1200
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoTuningFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoModFreqRange
+    text: 
+    caption: 
+    min: 0
+    max: 5000
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoModFreqFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoModAmpRange
+    text: 
+    caption: 
+    min: 0
+    max: 0.5
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: LfoModAmpFreq
+    text: 
+    caption: 
+    min: 0
+    max: 15
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: RMFreq
+    text: 
+    caption: 
+    min: -3600
+    max: 3600
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: RMAmp
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FMFreq
+    text: 
+    caption: 
+    min: 0
+    max: 10000
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: rslider
+    channel: FMAmp
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: GlobalVolume
+    text: 
+    caption: 
+    min: 0
+    max: 2
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: GlobalPan
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0.5
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: GlobalTuning
+    text: 
+    caption: 
+    min: -2400
+    max: 2400
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: button
+    channel: AmpEnvelopeToggle
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: AmpAttack
+    text: 
+    caption: 
+    min: 0.01
+    max: 10
+    value: 0.87
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: AmpDecay
+    text: 
+    caption: 
+    min: 0.01
+    max: 10
+    value: 0.1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: AmpSustain
+    text: 
+    caption: 
+    min: 0.0001
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: AmpRelease
+    text: 
+    caption: 
+    min: 0.01
+    max: 10
+    value: 0.4
+    skew: 0
+    increment: 0
+    options: []
+  - type: button
+    channel: ReverbBypass
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: ReverbSend
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: ReverbMix
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0.625
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: ReverbSize
+    text: 
+    caption: 
+    min: 0
+    max: 0.9
+    value: 0.543
+    skew: 0
+    increment: 0
+    options: []
+  - type: button
+    channel: DelayBypass
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: DelaySend
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: DelayMix
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: DelayTimeLeft
+    text: 
+    caption: 
+    min: 0.05
+    max: 10
+    value: 0.05
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: DelayTimeRight
+    text: 
+    caption: 
+    min: 0.05
+    max: 10
+    value: 0.05
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: DelayFeedback
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  _drawChannels: 0

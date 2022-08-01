@@ -18,7 +18,6 @@ public class RandomizeValuesOnInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             csoundSender.SetChannelsToRandomValue();
-            print("SPACE");
         }
     }
 }

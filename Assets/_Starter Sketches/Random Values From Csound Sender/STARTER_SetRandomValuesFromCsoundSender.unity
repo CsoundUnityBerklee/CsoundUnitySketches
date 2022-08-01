@@ -426,9 +426,9 @@ MonoBehaviour:
   csoundUnity: {fileID: 0}
   InstrumentPresets:
     presetList:
-    - {fileID: 11400000, guid: 6378b96af4ee6433cbececb5de1c8cbf, type: 2}
+    - {fileID: 11400000, guid: 9ecc67f7ab92744b19f74412b5e18ca2, type: 2}
     presetIndexOnStart: 0
-    setPresetOnStart: 1
+    setPresetOnStart: 0
     debugPresets: 1
     presetCurrentIndex: 0
   ScoreEvents:
@@ -442,6 +442,12 @@ MonoBehaviour:
     triggerOnStart: 1
     debugTrigger: 1
     triggerValue: 0
+  ChannelValues:
+    setChannelValuesList: []
+    channelValueIndexOnStart: 0
+    setChannelValueOnStart: 0
+    debugChannelsValues: 0
+    channelValueCurrentIndex: 0
   RandomChannelValues:
     randomValueChannelsList:
     - {fileID: 11400000, guid: c83de36de4f3443bdb0f01a511cff14c, type: 2}
@@ -1649,9 +1655,11 @@ MonoBehaviour:
   _drawSettings: 0
   _drawChannels: 1
   _drawAudioChannels: 0
-  _drawPresets: 0
+  _drawPresets: 1
   _showRuntimeEnvironmentPath: 0
   _currentPreset: 
+  _currentPresetSaveFolder: /Users/caiojmini/Documents/_CaioDocs/Unity/CsoundUnity/CsoundUnityBerklee/CsoundUnitySketches/Assets/_Starter
+    Sketches/Random Values From Csound Sender/Presets
 --- !u!82 &740359862
 AudioSource:
   m_ObjectHideFlags: 0
