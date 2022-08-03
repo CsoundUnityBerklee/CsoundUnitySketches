@@ -12,7 +12,15 @@ public class PlayOnStart : MonoBehaviour
     {
         csound = GetComponent<CsoundUnity>();
         csound.SetChannel("gate", 1);
-    }  
+    }
+
+    void FixedUpdate()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            csound.SetChannel("gate", 0);
+        }
+    }
 
 
 }
