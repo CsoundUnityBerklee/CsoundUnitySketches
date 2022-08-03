@@ -19,6 +19,7 @@ public class PlayOnStart : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             csound.SetChannel("gate", 0);
+            Destroy(this.gameObject, 0.5f);
         }
     }
 
