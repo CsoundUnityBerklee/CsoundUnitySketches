@@ -15,12 +15,12 @@ public class DetectCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        csound.SetChannel("gate", 1);
+        csound.SetChannel("gate", 0);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        csound.SetChannel("gate", 0);
+        csound.SetChannel("gate", 1);
     }
 
 
