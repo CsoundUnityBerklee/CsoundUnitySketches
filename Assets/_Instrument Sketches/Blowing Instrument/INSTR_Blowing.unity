@@ -5349,6 +5349,6 @@ MonoBehaviour:
   sampleWindow: 512
   threshold: 0.1
   loudnessSensibility: 50
-  source: {fileID: 0}
+  source: {fileID: 1849790273}
   blowingRange: 0.03
-  smoker: {fileID: 0}
+  smoker: {fileID: 1849790275}
