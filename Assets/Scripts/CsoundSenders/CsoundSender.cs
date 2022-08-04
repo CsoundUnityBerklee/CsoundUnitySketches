@@ -49,8 +49,8 @@ public class CsoundSender : MonoBehaviour
         Debug.Log("CSOUND INITIALIZED");
 
         ////Calls SetPreset if setPresetOnStart is true.
-        //if (InstrumentPresets.setPresetOnStart)
-        //    SetPreset(InstrumentPresets.presetIndexOnStart);
+        if (InstrumentPresets.setPresetOnStart)
+            SetPreset(InstrumentPresets.presetIndexOnStart);
 
         //Call SendCoreEvent is scoreEventIndexOnStart istrue.
         if (ScoreEvents.sendScoreEventOnStart)
@@ -71,90 +71,90 @@ public class CsoundSender : MonoBehaviour
     #endregion
 
     //#region PRESETS
-    ///// <summary>
-    ///// Reset values for the currently indexed CsoundUnityPreset preset.
-    ///// </summary>
-    ///// <param name="index"></param>
-    //public void ResetPreset()
-    //{
-    //    //Reset preset to the current preset list index.
-    //    csoundUnity.SetPreset(InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
+    /// <summary>
+    /// Reset values for the currently indexed CsoundUnityPreset preset.
+    /// </summary>
+    /// <param name="index"></param>
+    public void ResetPreset()
+    {
+        //Reset preset to the current preset list index.
+        csoundUnity.SetPreset(InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
 
-    //    if (InstrumentPresets.debugPresets)
-    //        Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
-    //}
+        if (InstrumentPresets.debugPresets)
+            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
+    }
 
-    ///// <summary>
-    ///// Uses the indexed CsoundUnityPreset asset to set the instrument's preset.
-    ///// </summary>
-    ///// <param name="index"></param>
-    //public void SetPreset(int index)
-    //{
-    //    //Set current preset index to the passed index.
-    //    InstrumentPresets.presetCurrentIndex = index;
-    //    //Set preset.
-    //    csoundUnity.SetPreset(InstrumentPresets.presetList[index]);
+    /// <summary>
+    /// Uses the indexed CsoundUnityPreset asset to set the instrument's preset.
+    /// </summary>
+    /// <param name="index"></param>
+    public void SetPreset(int index)
+    {
+        //Set current preset index to the passed index.
+        InstrumentPresets.presetCurrentIndex = index;
+        //Set preset.
+        csoundUnity.SetPreset(InstrumentPresets.presetList[index]);
 
-    //    if (InstrumentPresets.debugPresets)
-    //        Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
-    //}
+        if (InstrumentPresets.debugPresets)
+            Debug.Log("CSOUND " + gameObject.name + " set preset: " + InstrumentPresets.presetList[InstrumentPresets.presetCurrentIndex]);
+    }
 
     /// <summary>
     /// Adds a CsoundUnityPreset asset to the preset list and sets it as a preset.
     /// </summary>
-    /// <param name="preset"></param>
- //   public void SetPreset(CsoundUnityPreset preset)
- //   {
- //       //Adds new item to the preset list as the last item.
- //       InstrumentPresets.presetList.Add(preset);
- //       //Calls SetPreset passing in the last item as the index.
- //       SetPreset(InstrumentPresets.presetList.Count - 1);
- //   }
+    /// <param name = "preset" ></ param >
+    public void SetPreset(CsoundUnityPreset preset)
+    {
+        //Adds new item to the preset list as the last item.
+        InstrumentPresets.presetList.Add(preset);
+        //Calls SetPreset passing in the last item as the index.
+        SetPreset(InstrumentPresets.presetList.Count - 1);
+    }
 
- //   /// <summary>
-	///// Sets a random preset from the inspector defined list.
-	///// </summary>
- //   public void SetRandomPreset()
- //   {
- //       //Set preset index to a random number within the range of the lsit.
- //       InstrumentPresets.presetCurrentIndex = Random.Range(0, InstrumentPresets.presetList.Count);
- //       //Sets the random preset.
- //       SetPreset(InstrumentPresets.presetCurrentIndex);
- //   }
+    /// <summary>
+	/// Sets a random preset from the inspector defined list.
+	/// </summary>
+    public void SetRandomPreset()
+    {
+        //Set preset index to a random number within the range of the lsit.
+        InstrumentPresets.presetCurrentIndex = Random.Range(0, InstrumentPresets.presetList.Count);
+        //Sets the random preset.
+        SetPreset(InstrumentPresets.presetCurrentIndex);
+    }
 
- //   /// <summary>
-	///// Set the currently indexed preset and increments the index, cycling back to 0 if it reaches the end of the list.
-	///// </summary>
- //   public void SetNextPreset()
- //   {
- //       //Sets the currently indexed preset.
- //       ResetPreset();
- //       //Increments preset index.
- //       InstrumentPresets.presetCurrentIndex++;
- //       //Restes index to 0 if it goes above the list count
- //       if (InstrumentPresets.presetCurrentIndex > InstrumentPresets.presetList.Count - 1)
- //       {
- //           InstrumentPresets.presetCurrentIndex = 0;
- //       }
- //   }
+    /// <summary>
+	/// Set the currently indexed preset and increments the index, cycling back to 0 if it reaches the end of the list.
+	/// </summary>
+    public void SetNextPreset()
+    {
+        //Sets the currently indexed preset.
+        ResetPreset();
+        //Increments preset index.
+        InstrumentPresets.presetCurrentIndex++;
+        //Restes index to 0 if it goes above the list count
+        if (InstrumentPresets.presetCurrentIndex > InstrumentPresets.presetList.Count - 1)
+        {
+            InstrumentPresets.presetCurrentIndex = 0;
+        }
+    }
 
     /// <summary>
     /// Set the currently indexed preset and decreases the index, cycling back to the end of the list if it reaches 0.
     /// </summary>
-    //public void SetPreviousPreset()
-    //{
-    //    //Sets the currently indexed preset.
-    //    ResetPreset();
-    //    //Decreases preset index.
-    //    InstrumentPresets.presetCurrentIndex--;
-    //    //Rests the index to the top of the list if it reaches 0.
-    //    if (InstrumentPresets.presetCurrentIndex < 0)
-    //    {
-    //        InstrumentPresets.presetCurrentIndex = InstrumentPresets.presetList.Count - 1;
-    //    }
-    //}
+    public void SetPreviousPreset()
+    {
+        //Sets the currently indexed preset.
+        ResetPreset();
+        //Decreases preset index.
+        InstrumentPresets.presetCurrentIndex--;
+        //Rests the index to the top of the list if it reaches 0.
+        if (InstrumentPresets.presetCurrentIndex < 0)
+        {
+            InstrumentPresets.presetCurrentIndex = InstrumentPresets.presetList.Count - 1;
+        }
+    }
 
-   // #endregion
+    // #endregion
 
     #region TRIGGER
     /// <summary>
@@ -530,7 +530,7 @@ public class CsoundSender : MonoBehaviour
 public class CsoundSenderPresets
 {
     //[Tooltip("Array containing ChannelData asssets to be used as instrument presets")]
-    //public List<CsoundUnityPreset> presetList = new List<CsoundUnityPreset>();
+    public List<CsoundUnityPreset> presetList = new List<CsoundUnityPreset>();
     [Tooltip("Defined which preset to be set on start")]
     public int presetIndexOnStart;
     [Tooltip("If true, sets the defined preset value on start")]
