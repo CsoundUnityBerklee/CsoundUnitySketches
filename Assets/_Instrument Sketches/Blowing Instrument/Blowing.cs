@@ -39,6 +39,7 @@ public class Blowing : MonoBehaviour
     {
         if (playerInRange){ // section controlled by other script
         float loudness = GetLoudnessFromMicrophone() * loudnessSensibility;
+            //CsoundMap.SetCsoundChannelBasedOnAxis()
          if (loudnessSensibility < threshold){
              loudness = 0;
          } 
