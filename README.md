@@ -14,7 +14,13 @@ A series of sketches/examples that showcase some of the possibilities CsoundUnit
 
 ### Resources
 
-[**Step-by-Step Setup**](https://docs.google.com/document/d/1BNMPTBUtYkU1vpVhJm5mNDmsK5zea1AcQwM7IDez2Y4/edit?usp=sharing)
+
+
+### Resources
+
+[**Step-by-Step Setup: Text**](https://docs.google.com/document/d/1BNMPTBUtYkU1vpVhJm5mNDmsK5zea1AcQwM7IDez2Y4/edit?usp=sharing)
+
+[**Step-by-Step Setup: Video**](https://drive.google.com/file/d/1WVb5mdmnE39mrZV-cXD076mtGJ_pvtnz/view?usp=sharing)
 
 **Csound Unity References**:
 [CsoundUnity Documentation](https://rorywalsh.github.io/CsoundUnity/#/), [Rory's Repository](https://github.com/rorywalsh/CsoundUnity), [Pedro's Repository](https://github.com/peusodre/CsoundUnity_Systems), [Cabbage Forum on Csound Unity](https://forum.cabbageaudio.com/c/csound-for-games/10)
