@@ -2,7 +2,6 @@ using UnityEngine;
 
 public static class CsoundMap
 {
-
     //Scales a float between a minimum and a maximum value.
     public static float ScaleFloat(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
     {
@@ -14,7 +13,7 @@ public static class CsoundMap
     }
 
     //Scales the ChannelRange minValue and maxValue and passes it into Csound, mapping them to a defined range.
-    public static void SetCsoundChannelBasedOnAxis(CsoundChannelRangeSO csoundChannels, float minRange, float maxRange, float incomingData, CsoundUnity csoundUnity)
+    public static void MapValueToChannelRange(CsoundChannelRangeSO csoundChannels, float minRange, float maxRange, float incomingData, CsoundUnity csoundUnity)
     {
         //Cycles through every channel defined in the ChannelRange asset.
         foreach (CsoundChannelRangeSO.CsoundChannelData data in csoundChannels.channelData)
