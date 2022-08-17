@@ -1,16 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class CsoundMap
 {
 
-    
-    public static CsoundUnity csoundUnity;
-
-
     //Scales a float between a minimum and a maximum value.
-    private static float ScaleFloat(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
+    public static float ScaleFloat(float OldMin, float OldMax, float NewMin, float NewMax, float OldValue)
     {
         float OldRange = (OldMax - OldMin);
         float NewRange = (NewMax - NewMin);
@@ -20,14 +14,14 @@ public static class CsoundMap
     }
 
     //Scales the ChannelRange minValue and maxValue and passes it into Csound, mapping them to a defined range.
-    public static void SetCsoundChannelBasedOnAxis(CsoundChannelRangeSO csoundChannels, float minVectorRange, float maxVectorRange, float incomingData)
+    public static void SetCsoundChannelBasedOnAxis(CsoundChannelRangeSO csoundChannels, float minRange, float maxRange, float incomingData, CsoundUnity csoundUnity)
     {
         //Cycles through every channel defined in the ChannelRange asset.
         foreach (CsoundChannelRangeSO.CsoundChannelData data in csoundChannels.channelData)
         {
             //Scales the defined minValue and maxValue variables to a range.
             float value =
-                Mathf.Clamp(ScaleFloat(minVectorRange, maxVectorRange, data.minValue, data.maxValue, incomingData), data.minValue, data.maxValue);
+                Mathf.Clamp(ScaleFloat(minRange, maxRange, data.minValue, data.maxValue, incomingData), data.minValue, data.maxValue);
 
             //Passes the vlaue to Csound
             if (!data.returnAbsoluteValue)
