@@ -127,8 +127,6 @@ public class CsoundSender : MonoBehaviour
 	/// </summary>
     public void SetNextPreset()
     {
-        //Sets the currently indexed preset.
-        ResetPreset();
         //Increments preset index.
         InstrumentPresets.presetCurrentIndex++;
         //Restes index to 0 if it goes above the list count
@@ -136,6 +134,8 @@ public class CsoundSender : MonoBehaviour
         {
             InstrumentPresets.presetCurrentIndex = 0;
         }
+        //Sets the currently indexed preset.
+        ResetPreset();
     }
 
     /// <summary>
@@ -143,8 +143,6 @@ public class CsoundSender : MonoBehaviour
     /// </summary>
     public void SetPreviousPreset()
     {
-        //Sets the currently indexed preset.
-        ResetPreset();
         //Decreases preset index.
         InstrumentPresets.presetCurrentIndex--;
         //Rests the index to the top of the list if it reaches 0.
@@ -152,6 +150,8 @@ public class CsoundSender : MonoBehaviour
         {
             InstrumentPresets.presetCurrentIndex = InstrumentPresets.presetList.Count - 1;
         }
+        //Sets the currently indexed preset.
+        ResetPreset();
     }
 
     // #endregion
@@ -315,8 +315,6 @@ public class CsoundSender : MonoBehaviour
 	/// </summary>
     public void SendNextScoreEvent()
     {
-        //Sends currently indexed score event.
-        SendScoreEvent();
         //Increments the index.
         ScoreEvents.scoreEventCurrentIndex++;
         //Resets index to 0 if it goes above the list count.
@@ -324,6 +322,8 @@ public class CsoundSender : MonoBehaviour
         {
             ScoreEvents.scoreEventCurrentIndex = 0;
         }
+        //Sends currently indexed score event.
+        SendScoreEvent();
     }
 
     /// <summary>
@@ -331,8 +331,6 @@ public class CsoundSender : MonoBehaviour
     /// </summary>
     public void SendPreviousScoreEvent()
     {
-        //Sends currently indexed score event.
-        SendScoreEvent();
         //Decreases the index.
         ScoreEvents.scoreEventCurrentIndex--;
         //Rests the index to the top of the list if it reaches 0.
@@ -340,6 +338,8 @@ public class CsoundSender : MonoBehaviour
         {
             ScoreEvents.scoreEventCurrentIndex = ScoreEvents.scoreEventsList.Count - 1;
         }
+        //Sends currently indexed score event.
+        SendScoreEvent();
     }
 
     /// <summary>
@@ -497,8 +497,6 @@ public class CsoundSender : MonoBehaviour
 	/// </summary>
     public void SetNextChannelValue()
     {
-        //Sets currently indexed channel value.
-        SetChannelValue();
         //Increments the index.
         ChannelValues.channelValueCurrentIndex++;
         //Resets index to 0 if it reaches the end of the list.
@@ -506,6 +504,8 @@ public class CsoundSender : MonoBehaviour
         {
             ChannelValues.channelValueCurrentIndex = 0;
         }
+        //Sets currently indexed channel value.
+        SetChannelValue();
     }
 
     /// <summary>
@@ -513,8 +513,6 @@ public class CsoundSender : MonoBehaviour
     /// </summary>
     public void SetPreviousChannelValue()
     {
-        //Sets currently indexed channel value.
-        SetChannelValue();
         //Decreases the index.
         ChannelValues.channelValueCurrentIndex--;
         //Resets index to the end of the list if it reaches 0.
@@ -522,6 +520,8 @@ public class CsoundSender : MonoBehaviour
         {
             ChannelValues.channelValueCurrentIndex = ChannelValues.setChannelValuesList.Count - 1;
         }
+        //Sets currently indexed channel value.
+        SetChannelValue();
     }
     #endregion
 }

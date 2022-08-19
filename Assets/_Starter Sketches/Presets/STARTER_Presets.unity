@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2506,7 +2506,7 @@ MonoBehaviour:
     caption: 
     min: 0.01
     max: 6
-    value: 2.4
+    value: 2.6
     skew: 0
     increment: 0
     options: []
@@ -2526,7 +2526,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 1
-    value: 0.7
+    value: 0.296
     skew: 0
     increment: 0
     options: []
@@ -2536,7 +2536,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 1
-    value: 0.7
+    value: 0.22
     skew: 0
     increment: 0
     options: []
@@ -2546,7 +2546,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 1
-    value: 0.2
+    value: 0.305
     skew: 0
     increment: 0
     options: []
@@ -2556,7 +2556,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 1
-    value: 0.5
+    value: 1
     skew: 0
     increment: 0
     options: []
@@ -2566,7 +2566,7 @@ MonoBehaviour:
     caption: 
     min: 200
     max: 4000
-    value: 1300
+    value: 750
     skew: 0
     increment: 0
     options: []
@@ -2576,7 +2576,7 @@ MonoBehaviour:
     caption: 
     min: 1
     max: 4
-    value: 2
+    value: 1.71
     skew: 0
     increment: 0
     options: []
@@ -2586,7 +2586,7 @@ MonoBehaviour:
     caption: 
     min: 80
     max: 8000
-    value: 1200
+    value: 80
     skew: 0
     increment: 0
     options: []
@@ -2596,7 +2596,7 @@ MonoBehaviour:
     caption: 
     min: 80
     max: 8000
-    value: 2200
+    value: 1112
     skew: 0
     increment: 0
     options: []
@@ -2606,7 +2606,7 @@ MonoBehaviour:
     caption: 
     min: 0.01
     max: 0.5
-    value: 0.07
+    value: 0.094
     skew: 0
     increment: 0
     options: []
@@ -2616,7 +2616,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 1
-    value: 0.15
+    value: 0.551
     skew: 0
     increment: 0
     options: []
@@ -2626,7 +2626,7 @@ MonoBehaviour:
     caption: 
     min: 0.001
     max: 16
-    value: 11
+    value: 0.001
     skew: 0
     increment: 0
     options: []
@@ -2667,9 +2667,14 @@ MonoBehaviour:
   _drawChannels: 1
   _drawAudioChannels: 0
   _drawPresets: 1
+  _drawPresetsLoad: 1
+  _drawPresetsSave: 1
   _showRuntimeEnvironmentPath: 0
-  _currentPreset: STARTER_Preset_Trapped12_Init
-  _currentPresetSaveFolder: 
+  _currentPreset: STARTER_Preset_Trapped12_GettingDIzzy
+  _currentPresetSaveFolder: /Users/caiojmini/Documents/_CaioDocs/Unity/CsoundUnity/CsoundUnityBerklee/CsoundUnitySketches/Assets/_Starter
+    Sketches/Presets/PresetsTest
+  _currentPresetLoadFolder: /Users/caiojmini/Documents/_CaioDocs/Unity/CsoundUnity/CsoundUnityBerklee/CsoundUnitySketches/Assets/_Starter
+    Sketches/Presets/PresetsTest
 --- !u!82 &1729035111
 AudioSource:
   m_ObjectHideFlags: 0
