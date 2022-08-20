@@ -22,6 +22,9 @@ public class Blowing : MonoBehaviour
     [SerializeField] float blowingRange = 0.03f;
     // Particles
     public ParticleSystem smoker;
+
+    CsoundUnity csound;
+    public CsoundChannelRangeSO range;
      
      // Start is called before the first frame update
     void Start()
@@ -33,16 +36,22 @@ public class Blowing : MonoBehaviour
         // Turns off at the start
         var emission = smoker.emission;
         emission.enabled = false;
+
+        //Get CsoundUnity Component
+        csound = GetComponent<CsoundUnity>();
     }
 
      void Update()
     {
-        if (playerInRange){ // section controlled by other script
-        float loudness = GetLoudnessFromMicrophone() * loudnessSensibility;
+        if (playerInRange){
+            float loudness = GetLoudnessFromMicrophone() * loudnessSensibility;
+            CsoundMap.MapValueToChannelRange(range, 0.1f, 15f, loudness, csound);
+
+
             //CsoundMap.SetCsoundChannelBasedOnAxis()
          if (loudnessSensibility < threshold){
              loudness = 0;
-         } 
+            } 
         }
     }
     
@@ -87,20 +96,22 @@ public class Blowing : MonoBehaviour
     }
 
     void ParticlesGo(float pLoudness){
-        
-        if (pLoudness > blowingRange){
-            var emission = smoker.emission;
-            emission.enabled = true;
-            }
-        else {
-            var emission = smoker.emission;
-            emission.enabled = false;
-             }
-        
+
+        if (pLoudness > blowingRange)
+            ParticleSystem(true);
+        else
+            ParticleSystem(false);
         }
+
 
     public void PlayerInRange(bool inRange){
         playerInRange = inRange;
+    }
+
+    void ParticleSystem(bool isEnabled)
+    {
+        var emission = smoker.emission;
+        emission.enabled = isEnabled;
     }
 
 

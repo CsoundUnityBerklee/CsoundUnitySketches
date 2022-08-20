@@ -47,9 +47,9 @@ public class AI : MonoBehaviour
 
         float myZ = gameObject.transform.position.z;
 
-        float xPos = myX + Random.Range(myX - 100, myX + 100);
+        float xPos = myX + Random.Range(myX - 10, myX + 10);
 
-        float zPos = myZ + Random.Range(myZ - 100, myZ + 100);
+        float zPos = myZ + Random.Range(myZ - 10, myZ + 10);
 
 
 
