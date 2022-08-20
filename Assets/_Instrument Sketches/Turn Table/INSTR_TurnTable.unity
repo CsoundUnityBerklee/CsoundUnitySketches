@@ -354,7 +354,7 @@ MonoBehaviour:
   X: 0
   Y: 90
   Z: 0
-  scaling: 2
+  scaling: 3
 --- !u!1 &237500448
 GameObject:
   m_ObjectHideFlags: 0

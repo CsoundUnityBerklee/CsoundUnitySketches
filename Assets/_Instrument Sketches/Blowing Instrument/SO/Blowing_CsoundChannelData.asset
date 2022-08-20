@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Blowing_CsoundChannelData
   m_EditorClassIdentifier: 
   channelData:
-  - name: pitch1
-    minValue: 60
-    maxValue: 72
-    returnAbsoluteValue: 0
   - name: volume
     minValue: 0
     maxValue: 1
     returnAbsoluteValue: 0
-  - name: pitch2
-    minValue: 72
+  - name: pitch1
+    minValue: 60
     maxValue: 84
+    returnAbsoluteValue: 0
+  - name: vibfrequ
+    minValue: 1
+    maxValue: 5
     returnAbsoluteValue: 0

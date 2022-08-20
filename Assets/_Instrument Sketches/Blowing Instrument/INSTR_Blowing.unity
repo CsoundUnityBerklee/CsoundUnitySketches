@@ -5381,7 +5381,7 @@ MonoBehaviour:
     debugScoreEvents: 0
     scoreEventCurrentIndex: 0
   ChannelTrigger:
-    triggerChannelName: 
+    triggerChannelName: trigger
     triggerOnStart: 1
     debugTrigger: 0
     triggerValue: 0
@@ -5492,7 +5492,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 128
-    value: 50
+    value: 53.4
     skew: 0
     increment: 0
     options: []
@@ -5600,7 +5600,7 @@ MonoBehaviour:
   _drawCsoundString: 0
   _drawTestScore: 0
   _drawSettings: 0
-  _drawChannels: 0
+  _drawChannels: 1
   _drawAudioChannels: 0
   _drawPresets: 0
   _drawPresetsLoad: 0
