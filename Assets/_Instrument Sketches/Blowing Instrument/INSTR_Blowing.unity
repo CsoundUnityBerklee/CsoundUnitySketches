@@ -372,6 +372,8 @@ GameObject:
   - component: {fileID: 1849790275}
   - component: {fileID: 1849790274}
   - component: {fileID: 1849790273}
+  - component: {fileID: 1849790278}
+  - component: {fileID: 1849790277}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -5352,3 +5354,258 @@ MonoBehaviour:
   source: {fileID: 1849790273}
   blowingRange: 0.03
   smoker: {fileID: 1849790275}
+  range: {fileID: 11400000, guid: 385be2f0090ce4897b31206fdf14e1ac, type: 2}
+--- !u!114 &1849790277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849790268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460d19aab2fa1408aa5d9c925b6d0920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  csoundUnity: {fileID: 0}
+  InstrumentPresets:
+    presetList: []
+    presetIndexOnStart: 0
+    setPresetOnStart: 0
+    debugPresets: 0
+    presetCurrentIndex: 0
+  ScoreEvents:
+    scoreEventsList: []
+    sendScoreEventOnStart: 0
+    scoreEventIndexOnStart: 0
+    debugScoreEvents: 0
+    scoreEventCurrentIndex: 0
+  ChannelTrigger:
+    triggerChannelName: 
+    triggerOnStart: 1
+    debugTrigger: 0
+    triggerValue: 0
+  ChannelValues:
+    setChannelValuesList: []
+    channelValueIndexOnStart: 0
+    setChannelValueOnStart: 0
+    debugChannelsValues: 0
+    channelValueCurrentIndex: 0
+  RandomChannelValues:
+    randomValueChannelsList: []
+    randomValueIndexOnStart: 0
+    setChannelRandomValuesOnStart: 0
+    debugRandomChannelsValues: 0
+    randomValueCurrentIndex: 0
+--- !u!114 &1849790278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849790268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d20258c641c94f0ea3dc32cfe3de904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logCsoundOutput: 0
+  mute: 0
+  processClipAudio: 0
+  loudVolumeWarning: 1
+  loudWarningThreshold: 10
+  csoundScore: 
+  environmentSettings: []
+  _csoundFileGUID: f9ac6f565cab24111b36c275e1cbc7b8
+  _csoundString: "<Cabbage> bounds(0, 0, 0, 0)\r\nform caption(\"Untitled\") size(800,
+    500), guiMode(\"queue\"), pluginId(\"def1\")\r\nbutton bounds(302, 4, 80, 40)
+    channel(\"trigger\")\r\n\r\nhslider bounds(4, 2, 150, 50) channel(\"pitch1\")
+    range(0, 128, 50, 1, 1) text(\"Pitch1\")\r\nhslider bounds(4, 42, 150, 50) channel(\"pitch2\")
+    range(0, 128, 57, 1, 1) text(\"Pitch2\")\r\nhslider bounds(4, 82, 150, 50) channel(\"pitch3\")
+    range(0, 128, 66, 1, 1) text(\"Pitch3\")\r\nhslider bounds(6, 122, 150, 50) channel(\"filter\")
+    range(200, 10000, 200, 1, 0.1) text(\"filter\")\r\n\r\n\r\nhslider bounds(232,
+    186, 150, 50) channel(\"volume\") range(0, 1, 0.5, 1, 0.001) text(\"volume\")\r\n\r\nhslider
+    bounds(6, 184, 150, 50) channel(\"pulsewidth\") range(0.1, 0.9, 0.7, 1, 0.01)
+    text(\"pulsewidth\")\r\nhslider bounds(6, 224, 150, 50) channel(\"vibfreq\")
+    range(1, 5, 1, 1, 0.1) text(\"vibfreq\")\r\nhslider bounds(6, 266, 150, 50) channel(\"vibamp\")
+    range(0.5, 5, 0.5, 1, 0.1) text(\"vibamp\")\r\nhslider bounds(6, 366, 150, 50)
+    channel(\"distortion\") range(0, 0.7, 0, 1, 0.01) text(\"distortion\")\r\n\r\n\r\n\r\nhslider
+    bounds(232, 130, 150, 50) channel(\"pan\") range(0, 1, 0.5, 1, 0.01) text(\"pan\")\r\nhslider
+    bounds(228, 64, 150, 50) channel(\"mix\") range(0, 1, 0.25, 1, 0.01) text(\"mix\")\r\n\r\n</Cabbage>\r\n<CsoundSynthesizer>\r\n<CsOptions>\r\n-n
+    -d -+rtmidi=NULL -M0 --midi-key-cps=4 --midi-velocity-amp=5\r\n</CsOptions>\r\n<CsInstruments>\r\n;
+    Initialize the global variables. \r\nksmps = 32\r\nnchnls = 2\r\n0dbfs = 1\r\n\r\nalwayson
+    \"Trigger\"\r\n\r\ngiSine          ftgen   1, 0, 8192, 10, 1\r\ngiTriangle     
+    ftgen   2,0, 8192, 9, 1, 1, 0, 3, .333, 180, 5, .2, 0, 7, .143, 180, 9, .111,
+    0\r\ngiDist\t        ftgen\t10,0, 257, 9, .5,1,270\r\n\r\n\r\ninstr Trigger\r\n   
+    kTrig chnget \"trigger\"\r\n    kIsOnTrig   changed kTrig\r\n    \r\n    //Turn
+    insturment on indefinitely on triggeer and turn it off when trigger is hit again\r\n   
+    if kTrig == 1 then\r\n        if kIsOnTrig == 1 then\r\n            event \"i\",
+    \"Pad\", 0, 60*60*24*7\r\n        endif\r\n    elseif kTrig == 0 then\r\n       
+    turnoff2 \"Pad\", 0, 1\r\n    endif\r\nendin\r\n\r\n;instrument will be triggered
+    by keyboard widget\r\ninstr Pad\r\n    kEnv            madsr       3, .1, 1,
+    3\r\n    kVolume         chnget      \"volume\"\r\n    kPan            chnget     
+    \"pan\"\r\n    //Pitch\r\n    kPitch1         chnget      \"pitch1\"\r\n    kPitch2        
+    chnget      \"pitch2\"\r\n    kPitch3         chnget      \"pitch3\"\r\n    //Pw\r\n   
+    kPw             chnget      \"pulsewidth\"\r\n    kPw             port       
+    kPw, 0.01\r\n    //Vibrato\r\n    kVibFreq        chnget      \"vibfreq\"\r\n   
+    kVibAmp         chnget      \"vibamp\"\r\n    kVibrato        vibr        kVibAmp,
+    kVibFreq, 2\r\n    //Signal\r\n    aSig1            vco         0.5 * kEnv, cpsmidinn(kPitch1)
+    + kVibrato, 3 ,kPw, giSine  \r\n    aSig2            vco         0.5 * kEnv,
+    cpsmidinn(kPitch2) + kVibrato, 3 ,kPw, giSine  \r\n    aSig3            vco        
+    0.5 * kEnv, cpsmidinn(kPitch3) + kVibrato, 3 ,kPw, giSine  \r\n    aSigSum         
+    sum         aSig1, aSig2, aSig3\r\n    //FILTER\r\n    kFilterFreq     chnget     
+    \"filter\"\r\n    kFilterFreq     port        kFilterFreq, 0.01\r\n    aSigSum        
+    moogladder  aSigSum, kPitch3 + kFilterFreq, 0.5\r\n    //DISTORTION\r\n    kDistortion    
+    chnget      \"distortion\"\r\n    aSigSum         distort     aSigSum, kDistortion,
+    giDist\r\n    //PAN\r\n    aSigL, aSigR    pan2        aSigSum * kVolume, kPan\r\n   
+    //REVERB\r\n    kMix            chnget      \"mix\"\r\n    aVerbL, aVerbR  reverbsc   
+    aSigL, aSigR, 0.8, 5000\r\n    //OUTPUT\r\n    aMixL           ntrpol      aSigL,
+    aVerbL, kMix\r\n    aMixR           ntrpol      aSigR, aVerbR, kMix\r\n    outs
+    aMixL, aMixR\r\nendin\r\n\r\n</CsInstruments>\r\n<CsScore>\r\n;causes Csound
+    to run for about 7000 years...\r\nf0 z\r\n\r\n</CsScore>\r\n</CsoundSynthesizer>\r\n"
+  _csoundFileName: MapChannels_SynthPad.csd
+  _csoundAsset: {fileID: 102900000, guid: f9ac6f565cab24111b36c275e1cbc7b8, type: 3}
+  _channels:
+  - type: form
+    channel: 
+    text: 
+    caption: Untitled
+    min: 0
+    max: 0
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: button
+    channel: trigger
+    text: 
+    caption: 
+    min: 0
+    max: 0
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: pitch1
+    text: 
+    caption: 
+    min: 0
+    max: 128
+    value: 50
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: pitch2
+    text: 
+    caption: 
+    min: 0
+    max: 128
+    value: 57
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: pitch3
+    text: 
+    caption: 
+    min: 0
+    max: 128
+    value: 66
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: filter
+    text: 
+    caption: 
+    min: 200
+    max: 10000
+    value: 200
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: volume
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0.5
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: pulsewidth
+    text: 
+    caption: 
+    min: 0.1
+    max: 0.9
+    value: 0.7
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: vibfreq
+    text: 
+    caption: 
+    min: 1
+    max: 5
+    value: 1
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: vibamp
+    text: 
+    caption: 
+    min: 0.5
+    max: 5
+    value: 0.5
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: distortion
+    text: 
+    caption: 
+    min: 0
+    max: 0.7
+    value: 0
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: pan
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0.5
+    skew: 0
+    increment: 0
+    options: []
+  - type: hslider
+    channel: mix
+    text: 
+    caption: 
+    min: 0
+    max: 1
+    value: 0.25
+    skew: 0
+    increment: 0
+    options: []
+  _availableAudioChannels: []
+  _drawCsoundString: 0
+  _drawTestScore: 0
+  _drawSettings: 0
+  _drawChannels: 0
+  _drawAudioChannels: 0
+  _drawPresets: 0
+  _drawPresetsLoad: 0
+  _drawPresetsSave: 0
+  _showRuntimeEnvironmentPath: 0
+  _currentPreset: 
+  _currentPresetSaveFolder: 
+  _currentPresetLoadFolder: 
