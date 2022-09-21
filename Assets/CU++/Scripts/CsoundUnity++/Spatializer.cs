@@ -37,8 +37,7 @@ public class Spatializer : MonoBehaviour
 	[Header("Visual")]
 	[Tooltip("On/Off")]
 	[SerializeField] bool showVisual;
-	public Color color;
-
+	
 
 	// Use this for initialization
 	void Start()

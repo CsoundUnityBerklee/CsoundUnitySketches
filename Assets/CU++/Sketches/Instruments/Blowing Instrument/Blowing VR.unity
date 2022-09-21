@@ -761,7 +761,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 20bcccdbfa9ab4e5e96f36064bd65def, type: 2}
+  - {fileID: 2100000, guid: a15de527b3b0844f8bc3ff8d72957ba5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -804,7 +804,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -0.326, y: 0.876, z: 0.353}
 --- !u!1 &825135748
 GameObject:
@@ -1250,6 +1250,8 @@ GameObject:
   - component: {fileID: 919034703}
   - component: {fileID: 919034702}
   - component: {fileID: 919034701}
+  - component: {fileID: 919034713}
+  - component: {fileID: 919034714}
   m_Layer: 0
   m_Name: 3
   m_TagString: Untagged
@@ -6616,6 +6618,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &919034713
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919034700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.4064974
+  m_Center: {x: 0, y: 0.12, z: 0}
+--- !u!114 &919034714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919034700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805c0156fefa245568cea19d5052c3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnterEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 919034708}
+        m_TargetAssemblyTypeName: Blowing, Assembly-CSharp
+        m_MethodName: PlayerInRange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  triggerExitEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 919034708}
+        m_TargetAssemblyTypeName: Blowing, Assembly-CSharp
+        m_MethodName: PlayerInRange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cooldownTimer: 0
 --- !u!1 &1035832675
 GameObject:
   m_ObjectHideFlags: 0
@@ -6668,7 +6726,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 20bcccdbfa9ab4e5e96f36064bd65def, type: 2}
+  - {fileID: 2100000, guid: a15de527b3b0844f8bc3ff8d72957ba5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6870,6 +6928,8 @@ GameObject:
   - component: {fileID: 1849790277}
   - component: {fileID: 1849790280}
   - component: {fileID: 1849790279}
+  - component: {fileID: 1849790281}
+  - component: {fileID: 1849790282}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -6953,7 +7013,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1849790273
 AudioSource:
@@ -11998,7 +12058,7 @@ MonoBehaviour:
     caption: 
     min: 0
     max: 128
-    value: 57
+    value: 24.7
     skew: 0
     increment: 0
     options: []
@@ -12236,6 +12296,62 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1849790281
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849790268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.4064974
+  m_Center: {x: 0, y: 0.12, z: 0}
+--- !u!114 &1849790282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849790268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805c0156fefa245568cea19d5052c3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnterEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1849790276}
+        m_TargetAssemblyTypeName: Blowing, Assembly-CSharp
+        m_MethodName: PlayerInRange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  triggerExitEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1849790276}
+        m_TargetAssemblyTypeName: Blowing, Assembly-CSharp
+        m_MethodName: PlayerInRange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cooldownTimer: 0
 --- !u!1 &1950181279
 GameObject:
   m_ObjectHideFlags: 0
@@ -12256,6 +12372,8 @@ GameObject:
   - component: {fileID: 1950181282}
   - component: {fileID: 1950181281}
   - component: {fileID: 1950181280}
+  - component: {fileID: 1950181292}
+  - component: {fileID: 1950181293}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -17622,6 +17740,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1950181292
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950181279}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.4064974
+  m_Center: {x: 0, y: 0.12, z: 0}
+--- !u!114 &1950181293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950181279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805c0156fefa245568cea19d5052c3e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnterEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1950181287}
+        m_TargetAssemblyTypeName: Blowing, Assembly-CSharp
+        m_MethodName: PlayerInRange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  triggerExitEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1950181287}
+        m_TargetAssemblyTypeName: Blowing, Assembly-CSharp
+        m_MethodName: PlayerInRange
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cooldownTimer: 0
 --- !u!1 &1987526693
 GameObject:
   m_ObjectHideFlags: 0
@@ -17674,7 +17848,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 20bcccdbfa9ab4e5e96f36064bd65def, type: 2}
+  - {fileID: 2100000, guid: a15de527b3b0844f8bc3ff8d72957ba5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17795,5 +17969,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
