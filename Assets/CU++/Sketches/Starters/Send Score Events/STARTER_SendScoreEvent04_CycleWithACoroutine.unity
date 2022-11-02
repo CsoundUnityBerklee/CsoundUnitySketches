@@ -149,6 +149,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2132012676}
   m_Father: {fileID: 0}
@@ -234,6 +235,7 @@ Transform:
   m_LocalRotation: {x: 0.20667605, y: -0, z: -0, w: 0.97840947}
   m_LocalPosition: {x: 0, y: 4.87, z: -16.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -250,27 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!1 &511144904
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +278,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -345,6 +327,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -353,7 +336,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e562e8002f0dc4d0bbaafe4a01a4b65d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -393,6 +376,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -486,6 +470,7 @@ Transform:
   m_LocalRotation: {x: 0.42166483, y: 0.060840003, z: -0.028370101, w: 0.9042635}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -516,6 +501,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -552,6 +538,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.2, y: 1.99, z: -10}
   m_LocalScale: {x: 0.72858, y: 1.0009247, z: 0.72858}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 229123872}
   m_RootOrder: 0
@@ -591,10 +578,15 @@ MonoBehaviour:
     triggerOnStart: 0
     debugTrigger: 0
     triggerValue: 0
+  ChannelValues:
+    setChannelValuesList: []
+    channelValueIndexOnStart: 0
+    setChannelValueOnStart: 0
+    debugChannelsValues: 0
+    channelValueCurrentIndex: 0
   RandomChannelValues:
     randomValueChannelsList: []
     randomValueIndexOnStart: 0
-    useCurrentPresetRandomValues: 0
     setChannelRandomValuesOnStart: 0
     debugRandomChannelsValues: 0
     randomValueCurrentIndex: 0
@@ -631,7 +623,7 @@ MonoBehaviour:
     == 1 then\r\n        event \"i\", \"PlaySound\", 0, kDur, kFreq, kPan\r\n   
     endif\r\nendin\r\n\r\ninstr PlaySound\r\n\r\n    iDryLevel = rnd(.7)\r\n    iRvbSend
     = rnd(.24)\r\n    \r\n    aEnv expon 1, p3, 0.001\r\n    \r\n    aSigL oscili
-    aEnv, p4*aEnv+(rnd(1500))\r\n    aSigR oscili aEnv, p4*(1-aEnv)+(rnd(6000))\r\n   
+    aEnv, p4*aEnv+(rnd(100))\r\n    aSigR oscili aEnv, p4*(1-aEnv)+(rnd(100))\r\n   
     aMix = (aSigL+aSigR)*iDryLevel*.25\r\n    \r\n    aPanL, aPanR pan2 aMix, p5\r\n   
     outs aPanL, aPanR\r\n    \r\n    vincr gaRevL, aPanL*iRvbSend\r\n    vincr gaRevR,
     aPanR*iRvbSend  \r\nendin\r\n\r\ninstr Reverb\r\n        denorm gaRevL, gaRevR\r\naL,
@@ -698,7 +690,13 @@ MonoBehaviour:
   _drawSettings: 0
   _drawChannels: 1
   _drawAudioChannels: 1
+  _drawPresets: 0
+  _drawPresetsLoad: 0
+  _drawPresetsSave: 0
   _showRuntimeEnvironmentPath: 0
+  _currentPreset: 
+  _currentPresetSaveFolder: 
+  _currentPresetLoadFolder: 
 --- !u!82 &2132012679
 AudioSource:
   m_ObjectHideFlags: 0
@@ -807,6 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0598e69689b4d018be74615d00a923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textmeshPro: {fileID: 0}
 --- !u!23 &2132012681
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -818,6 +817,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -826,7 +826,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 67a452c8d64e846c3b5aeaac6a638b81, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
