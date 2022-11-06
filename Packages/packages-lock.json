@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.csound.csoundunity": {
-      "version": "file:/Users/mlf/Desktop/CsoundUnity",
+      "version": "https://github.com/rorywalsh/CsoundUnity.git",
       "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "2d0d62b0eaaf25d74ecf9490cfb960b2a44344a6"
     },
     "com.unity.collab-proxy": {
       "version": "1.15.18",

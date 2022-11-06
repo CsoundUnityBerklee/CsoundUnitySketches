@@ -30,23 +30,23 @@ public class ReadSample : MonoBehaviour
 
     void CreateTableMono(string nameOfSample)
     {
-        var samplesMono = CsoundUnity.GetSamples(name, CsoundUnity.SamplesOrigin.Resources, 1, false);
+        //var samplesMono = CsoundUnity.GetSamples(name, CsoundUnity.SamplesOrigin.Resources, 1, false);
 
-        if (csound.CreateTable(9001, samplesMono) == -1)
-        {
-            Debug.LogError("Couldn't create table");
-        }
+        //if (csound.CreateTable(9001, samplesMono) == -1)
+        //{
+        //    Debug.LogError("Couldn't create table");
+        //}
 
     }
 
     void CreateTableStereo(string nameOfSample)
     {
-        var samplesStereo = CsoundUnity.GetSamples(nameOfSample, CsoundUnity.SamplesOrigin.Resources, 1, true);
+        //var samplesStereo = CsoundUnity.GetSamples(nameOfSample, CsoundUnity.SamplesOrigin.Resources, 1, true);
 
-        if (csound.CreateTable(9000, samplesStereo) == -1)
-        {
-            Debug.LogError("Couldn't create table");
-        }
+        //if (csound.CreateTable(9000, samplesStereo) == -1)
+        //{
+        //    Debug.LogError("Couldn't create table");
+        //}
 
     }
 
